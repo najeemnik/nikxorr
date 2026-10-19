@@ -1,0 +1,6 @@
+{
+  "name": "NiKXor - فروشگاه ضیا",
+  "description": "سیستم مدیریت و حسابداری دکان مبایل و اکسسیری فروشگاه ضیا - مدیریت گدام، فروش، بل چاپی، قرضه ها و شریک ها",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

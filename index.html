@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="refresh" content="0; url=nikxor/index.php" />
+  <title>NiKXor - سیستم حسابداری و مدیریت دکان مبایل</title>
+  <meta name="description" content="سیستم مدیریت و حسابداری دکان مبایل و اکسسیری - مدیریت گدام، فروش، بل چاپی، قرضه ها و شریک ها" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    body {
+      background: radial-gradient(circle at 50% 30%, #1e293b, #0f172a);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f8fafc;
+      padding: 20px;
+    }
+    .splash-card {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      border-radius: 20px;
+      padding: 40px 32px;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(16px);
+      animation: fadeIn 0.4s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .brand-icon {
+      width: 76px;
+      height: 76px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #fbbf24, #d97706);
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      color: #0f172a;
+      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.35);
+    }
+    .brand-title {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      background: linear-gradient(135deg, #ffffff, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .brand-subtitle {
+      font-size: 13.5px;
+      color: #94a3b8;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .loader-ring {
+      width: 44px;
+      height: 44px;
+      margin: 0 auto 18px;
+      border: 3px solid rgba(251, 191, 36, 0.15);
+      border-top: 3px solid #fbbf24;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .loading-status {
+      font-size: 13px;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+    .btn-direct {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 10px 22px;
+      background: rgba(251, 191, 36, 0.15);
+      border: 1px solid #fbbf24;
+      color: #fbbf24;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    .btn-direct:hover {
+      background: #fbbf24;
+      color: #0f172a;
+    }
+  </style>
+</head>
+<body>
+  <div class="splash-card">
+    <div class="brand-icon">
+      <i class="fa-solid fa-mobile-screen-button"></i>
+    </div>
+    <h1 class="brand-title">NiKXor</h1>
+    <p class="brand-subtitle">سیستم مدیریت و حسابداری دکان مبایل و اکسسوری<br><span style="font-size: 12px; color: #64748b;">توسعه‌یافته توسط احمد نجیم نیک</span></p>
+    
+    <div class="loader-ring"></div>
+    <p class="loading-status">در حال بارگذاری و اتصال به نرم‌افزار...</p>
+
+    <div>
+      <a href="nikxor/index.php" class="btn-direct">
+        <i class="fa-solid fa-arrow-left ml-1"></i> ورود مستقیم به برنامه
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Immediate redirect to NiKXor
+    (function() {
+      var target = 'nikxor/index.php';
+      // In case accessed as http://localhost/ or subfolder
+      var currentPath = window.location.pathname;
+      if (currentPath.endsWith('/') || currentPath.endsWith('index.html')) {
+        window.location.replace(target);
+      } else {
+        window.location.href = target;
+      }
+    })();
+  </script>
+</body>
+</html>

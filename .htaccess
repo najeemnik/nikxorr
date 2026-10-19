@@ -1,0 +1,14 @@
+# NiKXor Root Security and Routing Configuration
+DirectoryIndex index.php index.html
+
+Options -Indexes
+
+<FilesMatch "\.(sqlite|sqlite3|db|sql|lock|log|env|ini|bak|swp)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</FilesMatch>

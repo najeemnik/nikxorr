@@ -1,0 +1,24 @@
+# NiKXor Mobile Shop Security Protection
+Options -Indexes
+
+# 1. Deny access to sensitive files (SQLite DB, SQL dumps, locks, logs)
+<FilesMatch "\.(sqlite|sqlite3|db|sql|lock|log|env|ini|bak|swp)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# 2. Prevent direct execution or download of internal include scripts
+<FilesMatch "(database|config|installed)\.(php|lock)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</FilesMatch>
