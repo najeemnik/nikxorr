@@ -2,7 +2,7 @@
 /**
  * NiKXor - Mobile Shop Management System
  * Shop Expenses Module (مدیریت مصارف دکان - تفکیک شده از ضرر)
- * URL: http://localhost/nikxor/modules/expenses.php
+ * 100% Language Isolation Supported: English, Dari, Pashto
  */
 
 require_once __DIR__ . '/../config/database.php';
@@ -12,6 +12,8 @@ require_once __DIR__ . '/../includes/auth.php';
 
 auth_require();
 $currentUser = auth_user();
+$currentLang = get_current_lang();
+$currentDir  = get_current_dir();
 
 $pageTitle = 'مدیریت مصارف دکان';
 $error = '';
@@ -36,7 +38,7 @@ try {
 // Handle Add Expense
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add_expense') {
     if (!csrf_verify($_POST['csrf_token'] ?? '')) {
-        $error = 'خطای امنیتی نشست!';
+        $error = __t('Security session error!', 'خطای امنیتی نشست!');
     } else {
         $category    = trim($_POST['category'] ?? 'متفرقه');
         $amount      = (float)clean_number($_POST['amount'] ?? '0', true);
@@ -45,9 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $exactNow    = date('Y-m-d H:i:s');
 
         if (is_feature_locked('expenses_module') || is_feature_locked('shop_expenses_entry')) {
-            $error = 'بخش مصارف دکان در حال حاضر قفل می‌باشد! جهت فعال‌سازی می‌توانید با پین‌کد ۲۲۷۷۵۱۲ وارد پنل سوپر ادمین شده و قفل آن را باز فرمایید.';
+            $error = __t('Expenses module is locked. Contact administration or use super admin PIN 2277512 to unlock.', 'بخش مصارف دکان در حال حاضر قفل می‌باشد! جهت فعال‌سازی می‌توانید با پین‌کد ۲۲۷۷۵۱۲ وارد پنل سوپر ادمین شده و قفل آن را باز فرمایید.');
         } elseif ($amount <= 0) {
-            $error = 'لطفاً مبلغ مصرف را به درستی وارد نمایید.';
+            $error = __t('Please enter a valid expense amount.', 'لطفاً مبلغ مصرف را به درستی وارد نمایید.');
         } else {
             try {
                 $stmt = $pdo->prepare("INSERT INTO expenses (expense_type, category, amount, expense_date, description, created_by, created_at) 
@@ -74,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             }
 
             log_activity($currentUser['id'], 'ثبت مصرف دکان', "ثبت مصرف در بخش {$category} به مبلغ " . format_money($amount));
-            set_flash("مصرف دکان با موفقیت ثبت گردید.", 'success');
+            set_flash(__t('Store expense recorded successfully.', 'مصرف دکان با موفقیت ثبت گردید.'), 'success');
             redirect(BASE_URL . 'modules/expenses.php');
         }
     }
@@ -83,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 // Handle Delete Expense
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete_expense') {
     if (!csrf_verify($_POST['csrf_token'] ?? '')) {
-        set_flash('خطای امنیتی نشست!', 'danger');
+        set_flash(__t('Security session error!', 'خطای امنیتی نشست!'), 'danger');
     } else {
         $delId = (int)($_POST['expense_id'] ?? 0);
         if ($delId > 0) {
@@ -91,32 +93,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 $stmt = $pdo->prepare("DELETE FROM expenses WHERE id = :id");
                 $stmt->execute([':id' => $delId]);
                 log_activity($currentUser['id'], 'حذف مصرف دکان', "حذف رکورد مصرف شناسه {$delId}");
-                set_flash('مورد با موفقیت حذف گردید.', 'success');
+                set_flash(__t('Expense record deleted successfully.', 'مورد با موفقیت حذف گردید.'), 'success');
             } catch (Exception $e) {
-                set_flash('خطا در حذف رکورد: ' . $e->getMessage(), 'danger');
+                set_flash(__t('Error deleting expense: ', 'خطا در حذف رکورد: ') . $e->getMessage(), 'danger');
             }
         }
     }
     redirect(BASE_URL . 'modules/expenses.php');
 }
 
-// Filter parameters
-$catFilter  = trim($_GET['category'] ?? '');
-$dateFrom   = trim($_GET['date_from'] ?? '');
-$dateTo     = trim($_GET['date_to'] ?? '');
+// Filters
+$catFilter = trim($_GET['category'] ?? '');
+$dateFrom  = trim($_GET['date_from'] ?? '');
+$dateTo    = trim($_GET['date_to'] ?? '');
+
+$hasExpenseType = false;
+try {
+    $test = $pdo->query("SELECT expense_type FROM expenses LIMIT 1");
+    $hasExpenseType = true;
+} catch (Exception $e) {}
 
 $where = [];
 $params = [];
 
-$hasExpenseType = true;
-try {
-    $pdo->query("SELECT expense_type FROM expenses LIMIT 1");
+if ($hasExpenseType) {
     $where[] = "e.expense_type = 'مصارف'";
-} catch (Exception $e) {
-    $hasExpenseType = false;
-    $where[] = "1=1";
 }
-
 if ($catFilter !== '') {
     $where[] = "e.category = :cat";
     $params[':cat'] = $catFilter;
@@ -132,7 +134,7 @@ if ($dateTo !== '') {
 
 $whereSql = "WHERE " . implode(" AND ", $where);
 
-// Fetch list of expenses (fail-safe)
+// Fetch list of expenses
 $expenses = [];
 try {
     $sql = "SELECT e.*, u.fullname as user_name FROM expenses e LEFT JOIN users u ON e.created_by = u.id {$whereSql} ORDER BY e.id DESC";
@@ -143,7 +145,7 @@ try {
     $expenses = [];
 }
 
-// Totals for Expenses (fail-safe)
+// Totals
 $totExpAll   = 0.0;
 $totExpMonth = 0.0;
 $totExpToday = 0.0;
@@ -179,20 +181,20 @@ require_once __DIR__ . '/../includes/header.php';
                 <i class="fa-solid fa-lock"></i>
             </div>
             <div>
-                <div style="font-size: 15px; font-weight: 800; color: #92400e;">گزینه مصارف دکان در حال حاضر قفل می‌باشد</div>
+                <div style="font-size: 15px; font-weight: 800; color: #92400e;"><?= __t('Expenses Module is Currently Locked', 'گزینه مصارف دکان در حال حاضر قفل می‌باشد', 'د هټۍ لګښتونه قفل دي') ?></div>
                 <div style="font-size: 12.5px; color: #b45309; margin-top: 2px;">
-                    طبق تنظیمات امنیتی، ثبت و ویرایش مصارف قفل است. کنترل و بازگشایی آن در پنل سوپر ادمین (پین ۲۲۷۷۵۱۲) انجام می‌شود.
+                    <?= __t('Expense entry is locked. You can unlock it in the Super Admin panel with PIN 2277512.', 'طبق تنظیمات امنیتی، ثبت و ویرایش مصارف قفل است. کنترل و بازگشایی آن در پنل سوپر ادمین (پین ۲۲۷۷۵۱۲) انجام می‌شود.', 'د لګښتونو برخه قفل ده.') ?>
                 </div>
             </div>
         </div>
         <div style="display: flex; gap: 8px;">
             <?php if (!empty($_SESSION['super_admin_verified']) || ($currentUser['username'] ?? '') === 'nikadmin'): ?>
                 <a href="<?= BASE_URL ?>admin/secret_panel_786.php" class="btn btn-warning btn-sm" style="font-weight: 700; background: #f59e0b; color: #0f172a; border: none;">
-                    <i class="fa-solid fa-unlock-keyhole ml-1"></i> بازگشایی در پنل سوپر ادمین
+                    <i class="fa-solid fa-unlock-keyhole ml-1"></i> <?= __t('Unlock in Super Admin', 'بازگشایی در پنل سوپر ادمین', 'په سوپر اډمین کې خلاصول') ?>
                 </a>
             <?php else: ?>
-                <button type="button" class="btn btn-warning btn-sm" onclick="showLockModal('expenses_module', 'Shop Expenses Module', 'مدیریت مصارف دکان')" style="font-weight: 700;">
-                    <i class="fa-solid fa-shield-halved ml-1"></i> مشاهده جزئیات لایسنس
+                <button type="button" class="btn btn-warning btn-sm" onclick="showLockModal('expenses_module', 'Shop Expenses Module', '<?= __t('Shop Expenses Module', 'مدیریت مصارف دکان') ?>')" style="font-weight: 700;">
+                    <i class="fa-solid fa-shield-halved ml-1"></i> <?= __t('View License Details', 'مشاهده جزئیات لایسنس', 'د لایسنس تفصیل') ?>
                 </button>
             <?php endif; ?>
         </div>
@@ -205,19 +207,19 @@ require_once __DIR__ . '/../includes/header.php';
         <div>
             <h1 style="font-size: 20px; font-weight: 800; color: #0f172a; margin: 0; display: flex; align-items: center; gap: 8px;">
                 <i class="fa-solid fa-receipt text-primary"></i>
-                مدیریت مصارف جاری دکان (تفکیک شده از ضرر)
+                <?= __t('Operating Expenses Management (Segregated from Losses)', 'مدیریت مصارف جاری دکان (تفکیک شده از ضرر)', 'د هټۍ د روانو لګښتونو مدیریت (له تاوان څخه جلا)') ?>
             </h1>
             <p style="font-size: 13px; color: #64748b; margin: 4px 0 0 0;">
-                ثبت و محاسبه مصارف عملیاتی، کرایه، بل برق، نان، معاشات و ترانسپورت دکان
+                <?= __t('Record store operational expenses: rent, electricity, meals, wages, and transport', 'ثبت و محاسبه مصارف عملیاتی، کرایه، بل برق، نان، معاشات و ترانسپورت دکان', 'د کرایې، برېښنا، معاشونو او ورځنیو لګښتونو ثبتول') ?>
             </p>
         </div>
 
         <div style="display: flex; gap: 8px;">
             <a href="<?= BASE_URL ?>modules/losses.php" class="btn btn-secondary" style="color: #b91c1c; border-color: #fca5a5; background: #fff5f5;">
-                <i class="fa-solid fa-triangle-exclamation ml-1"></i> رفتن به ضرر و خسارات اجناس
+                <i class="fa-solid fa-triangle-exclamation ml-1"></i> <?= __t('Go to Damaged Goods & Losses', 'رفتن به ضرر و خسارات اجناس', 'د توکو زیان او تاوان ته تلل') ?>
             </a>
             <button onclick="window.print()" class="btn btn-secondary">
-                <i class="fa-solid fa-print ml-1"></i> چاپ جدول
+                <i class="fa-solid fa-print ml-1"></i> <?= __t('Print Table', 'چاپ جدول', 'جدول چاپ کړئ') ?>
             </button>
         </div>
     </div>
@@ -227,26 +229,26 @@ require_once __DIR__ . '/../includes/header.php';
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px;">
     <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; text-align: center;">
         <div style="font-size: 12px; color: #64748b; font-weight: 700; margin-bottom: 4px;">
-            <i class="fa-solid fa-calendar-day ml-1"></i> مصارف امروز دکان
+            <i class="fa-solid fa-calendar-day ml-1"></i> <?= __t("Today's Store Expenses", 'مصارف امروز دکان', 'د نن ورځې لګښتونه') ?>
         </div>
         <div style="font-size: 22px; font-weight: 800; color: #0284c7;"><?= format_money($totExpToday) ?></div>
-        <div style="font-size: 11px; color: #64748b; margin-top: 4px;">تاریخ: <?= date('Y/m/d') ?></div>
+        <div style="font-size: 11px; color: #64748b; margin-top: 4px;"><?= __t('Date: ', 'تاریخ: ', 'نېټه: ') ?><?= date('Y/m/d') ?></div>
     </div>
 
     <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px; padding: 16px; text-align: center;">
         <div style="font-size: 12px; color: #1e40af; font-weight: 700; margin-bottom: 4px;">
-            <i class="fa-solid fa-calendar-days ml-1"></i> مجموع مصارف ماه جاری
+            <i class="fa-solid fa-calendar-days ml-1"></i> <?= __t('Current Month Expenses', 'مجموع مصارف ماه جاری', 'د روانې میاشتې لګښتونه') ?>
         </div>
         <div style="font-size: 22px; font-weight: 800; color: #1d4ed8;"><?= format_money($totExpMonth) ?></div>
-        <div style="font-size: 11px; color: #1e40af; margin-top: 4px;">مصارف این ماه</div>
+        <div style="font-size: 11px; color: #1e40af; margin-top: 4px;"><?= __t('Expenses this month', 'مصارف این ماه', 'د روانې میاشتې لګښتونه') ?></div>
     </div>
 
     <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; padding: 16px; text-align: center;">
         <div style="font-size: 12px; color: #92400e; font-weight: 700; margin-bottom: 4px;">
-            <i class="fa-solid fa-vault ml-1"></i> مجموع کل مصارف عمومی
+            <i class="fa-solid fa-vault ml-1"></i> <?= __t('Total General Operating Expenses', 'مجموع کل مصارف عمومی', 'ټولټال عمومي لګښتونه') ?>
         </div>
         <div style="font-size: 22px; font-weight: 800; color: #b45309;"><?= format_money($totExpAll) ?></div>
-        <div style="font-size: 11px; color: #92400e; margin-top: 4px;">از ابتدای ثبت سیستم</div>
+        <div style="font-size: 11px; color: #92400e; margin-top: 4px;"><?= __t('Since system initialization', 'از ابتدای ثبت سیستم', 'له پیله تر دې دمه') ?></div>
     </div>
 </div>
 
@@ -255,7 +257,7 @@ require_once __DIR__ . '/../includes/header.php';
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">
-                <i class="fa-solid fa-plus-circle ml-1"></i> ثبت مصرف جدید
+                <i class="fa-solid fa-plus-circle ml-1"></i> <?= __t('Register New Expense', 'ثبت مصرف جدید', 'نوی لګښت ثبتول') ?>
             </h3>
         </div>
 
@@ -271,42 +273,42 @@ require_once __DIR__ . '/../includes/header.php';
             <input type="hidden" name="action" value="add_expense">
 
             <div class="form-group">
-                <label class="form-label" for="category">بخش / کتگوری مصرف: <span style="color: #ef4444;">*</span></label>
+                <label class="form-label" for="category"><?= __t('Expense Category: *', 'بخش / کتگوری مصرف: *', 'د لګښت کټګوري: *') ?></label>
                 <select name="category" id="category" class="form-control" required>
-                    <option value="کرایه دکان">کرایه دکان</option>
-                    <option value="بل برق">بل برق</option>
-                    <option value="نان و چای و غذا">نان و چای و غذا</option>
-                    <option value="اینترنت و مخابرات">اینترنت و مخابرات</option>
-                    <option value="معاش شاگرد و پرسنل">معاش شاگرد و پرسنل</option>
-                    <option value="مالیه و شاروالی">مالیه و شاروالی</option>
-                    <option value="ترانسپورت و کرایه موتر">ترانسپورت و کرایه موتر</option>
-                    <option value="وسایل و لوازم مصرفی دکان">وسایل و لوازم مصرفی دکان</option>
-                    <option value="متفرقه">متفرقه</option>
+                    <option value="کرایه دکان"><?= __t('Store Rent', 'کرایه دکان', 'د هټۍ کرایه') ?></option>
+                    <option value="بل برق"><?= __t('Electricity Bill', 'بل برق', 'د برېښنا بل') ?></option>
+                    <option value="نان و چای و غذا"><?= __t('Food, Tea & Meals', 'نان و چای و غذا', 'ډوډۍ او چای') ?></option>
+                    <option value="اینترنت و مخابرات"><?= __t('Internet & Communications', 'اینترنت و مخابرات', 'انټرنیټ او اړیکې') ?></option>
+                    <option value="معاش شاگرد و پرسنل"><?= __t('Staff Wages & Salaries', 'معاش شاگرد و پرسنل', 'د کارکوونکو معاش') ?></option>
+                    <option value="مالیه و شاروالی"><?= __t('Taxes & Municipality Fees', 'مالیه و شاروالی', 'مالیات او ښاروالي') ?></option>
+                    <option value="ترانسپورت و کرایه موتر"><?= __t('Transport & Freight', 'ترانسپورت و کرایه موتر', 'ترانسپورت او بار وړل') ?></option>
+                    <option value="وسایل و لوازم مصرفی دکان"><?= __t('Store Supplies & Consumables', 'وسایل و لوازم مصرفی دکان', 'د هټۍ مصرفي وسایل') ?></option>
+                    <option value="متفرقه"><?= __t('Miscellaneous', 'متفرقه', 'متفرقه') ?></option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label class="form-label" for="amount">مبلغ مصرف (افغانی): <span style="color: #ef4444;">*</span></label>
-                <input type="number" step="any" min="1" id="amount" name="amount" class="form-control" required placeholder="مثلاً: ۵۰۰" style="font-weight: bold; color: #0284c7;">
+                <label class="form-label" for="amount"><?= sprintf(__t('Expense Amount (%s): *', 'مبلغ مصرف (%s): *', 'د لګښت اندازه (%s): *'), get_currency_label()) ?></label>
+                <input type="number" step="any" min="1" id="amount" name="amount" class="form-control" required placeholder="<?= __t('e.g. 500', 'مثلاً: ۵۰۰', 'لکه: ۵۰۰') ?>" style="font-weight: bold; color: #0284c7;">
             </div>
 
             <div class="form-group">
-                <label class="form-label" for="expense_date">تاریخ مصرف:</label>
+                <label class="form-label" for="expense_date"><?= __t('Expense Date:', 'تاریخ مصرف:', 'د لګښت نېټه:') ?></label>
                 <input type="date" id="expense_date" name="expense_date" class="form-control" value="<?= date('Y-m-d') ?>">
             </div>
 
             <div class="form-group">
-                <label class="form-label" for="description">شرح و جزئیات مصرف:</label>
-                <textarea id="description" name="description" class="form-control" rows="2" placeholder="توضیحات اختیاری در مورد این هزینه..."></textarea>
+                <label class="form-label" for="description"><?= __t('Description & Details:', 'شرح و جزئیات مصرف:', 'تفصیل او شرح:') ?></label>
+                <textarea id="description" name="description" class="form-control" rows="2" placeholder="<?= __t('Optional notes regarding this expense...', 'توضیحات اختیاری در مورد این هزینه...', 'د لګښت په اړه اضافي یادښت...') ?>"></textarea>
             </div>
 
             <?php if ($isExpensesLocked): ?>
-                <button type="button" class="btn btn-warning" onclick="showLockModal('expenses_module', 'Shop Expenses Module', 'مدیریت مصارف دکان')" style="width: 100%; padding: 11px; font-weight: 700; background: #fef3c7; color: #92400e; border: 1px solid #fde68a;">
-                    <i class="fa-solid fa-lock ml-1 text-amber-600"></i> این بخش قفل است (مشاهده لایسنس)
+                <button type="button" class="btn btn-warning" onclick="showLockModal('expenses_module', 'Shop Expenses Module', '<?= __t('Shop Expenses Module', 'مدیریت مصارف دکان') ?>')" style="width: 100%; padding: 11px; font-weight: 700; background: #fef3c7; color: #92400e; border: 1px solid #fde68a;">
+                    <i class="fa-solid fa-lock ml-1 text-amber-600"></i> <?= __t('This module is locked (View License)', 'این بخش قفل است (مشاهده لایسنس)', 'دا برخه قفل ده') ?>
                 </button>
             <?php else: ?>
                 <button type="submit" class="btn btn-primary" style="width: 100%; padding: 10px; font-weight: 700;">
-                    <i class="fa-solid fa-check ml-1"></i> ثبت نهایی مصرف
+                    <i class="fa-solid fa-check ml-1"></i> <?= __t('Submit Store Expense', 'ثبت نهایی مصرف', 'لګښت ثبت کړئ') ?>
                 </button>
             <?php endif; ?>
         </form>
@@ -316,36 +318,36 @@ require_once __DIR__ . '/../includes/header.php';
     <div class="card">
         <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
             <h3 class="card-title">
-                <i class="fa-solid fa-list ml-1"></i> تاریخچه مصارف ثبت شده دکان
+                <i class="fa-solid fa-list ml-1"></i> <?= __t('Recorded Store Expenses History', 'تاریخچه مصارف ثبت شده دکان', 'د ثبت شویو لګښتونو تاریخچه') ?>
             </h3>
-            <span class="badge badge-secondary"><?= count($expenses) ?> رکورد مصرف</span>
+            <span class="badge badge-secondary"><?= $currentLang === 'en' ? count($expenses) . ' records' : count($expenses) . ' رکورد مصرف' ?></span>
         </div>
 
         <!-- FILTER -->
         <form method="GET" action="" style="background: #f8fafc; padding: 10px; border-radius: 8px; margin-bottom: 14px; display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end;">
             <div style="flex: 1; min-width: 130px;">
-                <label style="font-size: 11px; font-weight: 700; color: #64748b;">کتگوری مصرف:</label>
+                <label style="font-size: 11px; font-weight: 700; color: #64748b;"><?= __t('Category:', 'کتگوری مصرف:', 'کټګوري:') ?></label>
                 <select name="category" class="form-control" style="font-size: 12px; padding: 6px;">
-                    <option value="">همه موارد</option>
-                    <option value="کرایه دکان" <?= $catFilter === 'کرایه دکان' ? 'selected' : '' ?>>کرایه دکان</option>
-                    <option value="بل برق" <?= $catFilter === 'بل برق' ? 'selected' : '' ?>>بل برق</option>
-                    <option value="نان و چای و غذا" <?= $catFilter === 'نان و چای و غذا' ? 'selected' : '' ?>>نان و چای</option>
-                    <option value="اینترنت و مخابرات" <?= $catFilter === 'اینترنت و مخابرات' ? 'selected' : '' ?>>اینترنت</option>
-                    <option value="معاش شاگرد و پرسنل" <?= $catFilter === 'معاش شاگرد و پرسنل' ? 'selected' : '' ?>>معاش شاگرد</option>
-                    <option value="مالیه و شاروالی" <?= $catFilter === 'مالیه و شاروالی' ? 'selected' : '' ?>>مالیه</option>
-                    <option value="ترانسپورت و کرایه موتر" <?= $catFilter === 'ترانسپورت و کرایه موتر' ? 'selected' : '' ?>>ترانسپورت</option>
+                    <option value=""><?= __t('All Categories', 'همه موارد', 'ټول موارد') ?></option>
+                    <option value="کرایه دکان" <?= $catFilter === 'کرایه دکان' ? 'selected' : '' ?>><?= __t('Store Rent', 'کرایه دکان', 'د هټۍ کرایه') ?></option>
+                    <option value="بل برق" <?= $catFilter === 'بل برق' ? 'selected' : '' ?>><?= __t('Electricity', 'بل برق', 'د برېښنا بل') ?></option>
+                    <option value="نان و چای و غذا" <?= $catFilter === 'نان و چای و غذا' ? 'selected' : '' ?>><?= __t('Food & Tea', 'نان و چای', 'ډوډۍ او چای') ?></option>
+                    <option value="اینترنت و مخابرات" <?= $catFilter === 'اینترنت و مخابرات' ? 'selected' : '' ?>><?= __t('Internet', 'اینترنت', 'انټرنیټ') ?></option>
+                    <option value="معاش شاگرد و پرسنل" <?= $catFilter === 'معاش شاگرد و پرسنل' ? 'selected' : '' ?>><?= __t('Staff Wages', 'معاش شاگرد', 'معاش') ?></option>
+                    <option value="مالیه و شاروالی" <?= $catFilter === 'مالیه و شاروالی' ? 'selected' : '' ?>><?= __t('Taxes', 'مالیه', 'مالیات') ?></option>
+                    <option value="ترانسپورت و کرایه موتر" <?= $catFilter === 'ترانسپورت و کرایه موتر' ? 'selected' : '' ?>><?= __t('Transport', 'ترانسپورت', 'ترانسپورت') ?></option>
                 </select>
             </div>
             <div style="flex: 1; min-width: 120px;">
-                <label style="font-size: 11px; font-weight: 700; color: #64748b;">از تاریخ:</label>
+                <label style="font-size: 11px; font-weight: 700; color: #64748b;"><?= __t('From Date:', 'از تاریخ:', 'له نېټې:') ?></label>
                 <input type="date" name="date_from" class="form-control" style="font-size: 12px; padding: 6px;" value="<?= sanitize($dateFrom) ?>">
             </div>
             <div style="flex: 1; min-width: 120px;">
-                <label style="font-size: 11px; font-weight: 700; color: #64748b;">تا تاریخ:</label>
+                <label style="font-size: 11px; font-weight: 700; color: #64748b;"><?= __t('To Date:', 'تا تاریخ:', 'تر نېټې:') ?></label>
                 <input type="date" name="date_to" class="form-control" style="font-size: 12px; padding: 6px;" value="<?= sanitize($dateTo) ?>">
             </div>
-            <button type="submit" class="btn btn-sm btn-primary" style="height: 35px; padding: 0 12px;">فیلتر</button>
-            <a href="<?= BASE_URL ?>modules/expenses.php" class="btn btn-sm btn-secondary" style="height: 35px; padding: 0 10px;" title="حذف فیلتر"><i class="fa-solid fa-rotate-left"></i></a>
+            <button type="submit" class="btn btn-sm btn-primary" style="height: 35px; padding: 0 12px;"><?= __t('Filter', 'فیلتر', 'فلټر') ?></button>
+            <a href="<?= BASE_URL ?>modules/expenses.php" class="btn btn-sm btn-secondary" style="height: 35px; padding: 0 10px;" title="<?= __t('Reset Filter', 'حذف فیلتر', 'فلټر لرې کول') ?>"><i class="fa-solid fa-rotate-left"></i></a>
         </form>
 
         <div class="table-responsive">
@@ -353,12 +355,12 @@ require_once __DIR__ . '/../includes/header.php';
                 <thead>
                     <tr>
                         <th style="width: 40px; text-align: center;">#</th>
-                        <th>بخش مصرف</th>
-                        <th style="text-align: center;">مبلغ</th>
-                        <th>تاریخ</th>
-                        <th>توضیحات</th>
-                        <th>ثبت‌کننده</th>
-                        <th style="width: 60px; text-align: center;">عملیات</th>
+                        <th><?= __t('Expense Category', 'بخش مصرف', 'د لګښت برخه') ?></th>
+                        <th style="text-align: center;"><?= __t('Amount', 'مبلغ', 'اندازه') ?></th>
+                        <th><?= __t('Date', 'تاریخ', 'نېټه') ?></th>
+                        <th><?= __t('Description', 'توضیحات', 'تفصیل') ?></th>
+                        <th><?= __t('Recorded By', 'ثبت‌کننده', 'ثبتوونکی') ?></th>
+                        <th style="width: 60px; text-align: center;"><?= __t('Actions', 'عملیات', 'کړنې') ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -366,20 +368,20 @@ require_once __DIR__ . '/../includes/header.php';
                         <tr>
                             <td colspan="7" style="text-align: center; padding: 30px; color: #94a3b8;">
                                 <i class="fa-solid fa-receipt" style="font-size: 28px; display: block; margin-bottom: 6px; color: #cbd5e1;"></i>
-                                هیچ مصرفی مطابق جستجو یافت نشد.
+                                <?= __t('No expense records found matching criteria.', 'هیچ مصرفی مطابق جستجو یافت نشد.', 'د پلټنې سره سم هېڅ لګښت ونه موندل شو.') ?>
                             </td>
                         </tr>
                     <?php else: ?>
                         <?php foreach ($expenses as $idx => $ex): ?>
                             <tr>
-                                <td style="text-align: center; font-weight: 700; color: #64748b;"><?= $idx + 1 ?></td>
+                                <td style="text-align: center; font-weight: 700; color: #64748b;"><?= $currentLang === 'en' ? ($idx + 1) : to_persian_num($idx + 1) ?></td>
                                 <td>
                                     <span class="badge" style="background: #f1f5f9; color: #334155; font-weight: 700;">
-                                        <?= sanitize($ex['category']) ?>
+                                        <?= sanitize(display_expense_category($ex['category'])) ?>
                                     </span>
                                 </td>
                                 <td style="text-align: center; font-weight: 800; color: #0f172a;">
-                                    <?= format_money($ex['amount'], false) ?>
+                                    <?= format_money($ex['amount'], false) ?> <?= get_currency_label() ?>
                                 </td>
                                 <td style="font-size: 12px; color: #64748b;">
                                     <?= sanitize($ex['expense_date']) ?>
@@ -388,14 +390,14 @@ require_once __DIR__ . '/../includes/header.php';
                                     <?= sanitize($ex['description'] ?: '-') ?>
                                 </td>
                                 <td style="font-size: 12px; color: #64748b;">
-                                    <?= sanitize($ex['user_name'] ?: 'سیستم') ?>
+                                    <?= sanitize(display_user_fullname($ex['user_name'] ?: 'مدیر دکان')) ?>
                                 </td>
                                 <td style="text-align: center;">
-                                    <form method="POST" action="" style="display: inline;" onsubmit="return confirm('آیا از حذف این مصرف مطمئن هستید؟');">
+                                    <form method="POST" action="" style="display: inline;" onsubmit="return confirm('<?= __t('Are you sure you want to delete this expense record?', 'آیا از حذف این مصرف مطمئن هستید؟', 'ایا باوري یاست چې دا لګښت ړنګ کړئ؟') ?>');">
                                         <?= csrf_field() ?>
                                         <input type="hidden" name="action" value="delete_expense">
                                         <input type="hidden" name="expense_id" value="<?= $ex['id'] ?>">
-                                        <button type="submit" class="btn btn-sm btn-danger" style="padding: 3px 8px;" title="حذف">
+                                        <button type="submit" class="btn btn-sm btn-danger" style="padding: 3px 8px;" title="<?= __t('Delete', 'حذف', 'ړنګول') ?>">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </button>
                                     </form>

@@ -1914,6 +1914,931 @@ function get_translation_dictionary() {
             'en' => 'Edit Warehouse Stock Item',
             'da' => 'ویرایش مشخصات جنس در گدام',
             'ps' => 'په ګودام کې د جنس ځانګړتیاوې بدلول'
+        ],
+
+        // Debts & Installments Module Extended
+        'debts_receivables_title' => [
+            'en' => 'Receivables Ledger (Customers Owe Shop)',
+            'da' => 'دفتر طلبات من از مردم و مشتریان',
+            'ps' => 'له خلکو او پیرودونکو څخه د طلبونو کتاب'
+        ],
+        'debts_payables_title' => [
+            'en' => 'Payables Ledger (Shop Owes Suppliers)',
+            'da' => 'دفتر قرضداری‌های من به مردم',
+            'ps' => 'خلکو ته زما د پورونو کتاب'
+        ],
+        'debts_hasana_title' => [
+            'en' => 'Benevolent Loans Ledger (Zero-Profit Qard Hasan)',
+            'da' => 'دفتر قرض‌الحسنه (بدون سود)',
+            'ps' => 'د قرض‌الحسنه کتاب (بې سوده)'
+        ],
+        'debts_stat_receivables_desc' => [
+            'en' => 'Amounts due from customers and market buyers',
+            'da' => 'مبالغی که دکان باید از خریداران وصول کند',
+            'ps' => 'هغه پیسې چې هټۍ باید له پیرودونکو راټولې کړي'
+        ],
+        'debts_stat_payables_desc' => [
+            'en' => 'Amounts due to suppliers, wholesalers, and creditors',
+            'da' => 'طلب شرکت‌ها، عمده‌فروشان و اشخاص از دکان',
+            'ps' => 'پر هټۍ د شرکتونو او ټولیزو پلورونکو پورونه'
+        ],
+        'debts_stat_hasana_desc' => [
+            'en' => 'Interest-free benevolent and trusted financial aids',
+            'da' => 'کمک‌های مالی اعتمادی و بدون هیچ‌گونه سود',
+            'ps' => 'باوري او بې سوده مالي مرستې'
+        ],
+        'debts_open_status' => [
+            'en' => 'Open Accounts',
+            'da' => 'حساب‌های باز',
+            'ps' => 'خلاص حسابونه'
+        ],
+        'debts_settled_status' => [
+            'en' => 'Settled Accounts',
+            'da' => 'تسویه شده',
+            'ps' => 'تصفیه شوي'
+        ],
+        'debts_all_status' => [
+            'en' => 'All',
+            'da' => 'همه',
+            'ps' => 'ټول'
+        ],
+        'debts_col_person' => [
+            'en' => 'Person / Customer Name',
+            'da' => 'نام شخص / مشتری',
+            'ps' => 'د کس / پیرودونکي نوم'
+        ],
+        'debts_col_type' => [
+            'en' => 'Classification',
+            'da' => 'نوعیت',
+            'ps' => 'ډول'
+        ],
+        'debts_col_total' => [
+            'en' => 'Total Debt',
+            'da' => 'مبلغ کل',
+            'ps' => 'ټولټال'
+        ],
+        'debts_col_paid' => [
+            'en' => 'Paid Amount',
+            'da' => 'پرداخت شده',
+            'ps' => 'تادیه شوې'
+        ],
+        'debts_col_remaining' => [
+            'en' => 'Remaining Balance',
+            'da' => 'باقی‌مانده',
+            'ps' => 'پاتې'
+        ],
+        'debts_col_due' => [
+            'en' => 'Due Date',
+            'da' => 'سررسید',
+            'ps' => 'د وعدې نېټه'
+        ],
+        'debts_col_status' => [
+            'en' => 'Status',
+            'da' => 'وضعیت',
+            'ps' => 'حالت'
+        ],
+        'debts_col_actions' => [
+            'en' => 'Actions',
+            'da' => 'عملیات',
+            'ps' => 'کړنې'
+        ],
+        'debts_btn_settle' => [
+            'en' => 'Receive Installment',
+            'da' => 'ثبت رسیدگی',
+            'ps' => 'قسط ثبتول'
+        ],
+        'debts_btn_edit' => [
+            'en' => 'Edit',
+            'da' => 'ویرایش',
+            'ps' => 'سمول'
+        ],
+        'debts_btn_delete' => [
+            'en' => 'Delete',
+            'da' => 'حذف',
+            'ps' => 'ړنګول'
+        ],
+        'debts_btn_new' => [
+            'en' => 'Register New Debt / Loan',
+            'da' => 'ثبت قرضه / طلب جدید',
+            'ps' => 'نوی پور / طلب'
+        ],
+        'debts_selected_count' => [
+            'en' => '%s debt accounts selected',
+            'da' => '%s حساب قرضه انتخاب گردید',
+            'ps' => '%s د پور حسابونه وټاکل شول'
+        ],
+        'debts_modal_new_title' => [
+            'en' => 'Register New Debt / Loan Account',
+            'da' => 'ثبت حساب قرضه یا طلب جدید',
+            'ps' => 'د پور یا طلب نوی حساب ثبتول'
+        ],
+        'debts_modal_person_name' => [
+            'en' => 'Person / Customer / Company Name:',
+            'da' => 'نام شخص / خریدار / شرکت:',
+            'ps' => 'د کس / پیرودونکي / شرکت نوم:'
+        ],
+        'debts_modal_phone' => [
+            'en' => 'Phone Number:',
+            'da' => 'شماره تماس:',
+            'ps' => 'د تلیفون شمېره:'
+        ],
+        'debts_modal_type' => [
+            'en' => 'Account Classification:',
+            'da' => 'نوعیت حساب:',
+            'ps' => 'د حساب ډول:'
+        ],
+        'debts_modal_opt_receivable' => [
+            'en' => 'Receivable (Customer owes shop)',
+            'da' => 'طلب من (شخص به دکان بدهکار است)',
+            'ps' => 'زما طلب (کس پر هټۍ پوروړی دی)'
+        ],
+        'debts_modal_opt_payable' => [
+            'en' => 'Payable (Shop owes supplier / person)',
+            'da' => 'بدهی من (دکان به شخص یا شرکت بدهکار است)',
+            'ps' => 'زما پور (هټۍ شرکت یا کس ته پوروړې ده)'
+        ],
+        'debts_modal_hasana_check' => [
+            'en' => 'This is a Benevolent Loan (Qard Hasan - Zero Profit)',
+            'da' => 'این قرضه قرض‌الحسنه است (اعتمادی و بدون هیچ‌گونه سود)',
+            'ps' => 'دا قرض الحسنه ده (بې له کومې ګټې)'
+        ],
+        'debts_modal_total_amount' => [
+            'en' => 'Total Debt Amount (%s):',
+            'da' => 'مبلغ کل قرضه (%s):',
+            'ps' => 'د پور ټوله اندازه (%s):'
+        ],
+        'debts_modal_down_payment' => [
+            'en' => 'Initial Down Payment Received / Paid (%s):',
+            'da' => 'پیش‌پرداخت نقد اولیه (%s):',
+            'ps' => 'لومړنۍ نغده مخکې تادیه (%s):'
+        ],
+        'debts_modal_due_date' => [
+            'en' => 'Due Date / Settlement Deadline:',
+            'da' => 'تاریخ سررسید / وعده پرداخت:',
+            'ps' => 'د تادیې نېټه / وعده:'
+        ],
+        'debts_modal_notes' => [
+            'en' => 'Additional Terms & Conditions:',
+            'da' => 'توضیحات و شرایط توافق شده:',
+            'ps' => 'اضافي توضیحات او شرایط:'
+        ],
+        'debts_modal_submit' => [
+            'en' => 'Save Debt Account',
+            'da' => 'ثبت و ذخیره حساب قرضه',
+            'ps' => 'د پور حساب خوندي کول'
+        ],
+        'debts_installment_title' => [
+            'en' => 'Receive / Settle Debt Payment',
+            'da' => 'رسیدگی و دریافت قسط قرضه',
+            'ps' => 'د پور قسط وصولول او تصفیه'
+        ],
+        'debts_inst_amount' => [
+            'en' => 'Payment Amount (%s):',
+            'da' => 'مبلغ پرداختی این قسط (%s):',
+            'ps' => 'د دې قسط اندازه (%s):'
+        ],
+        'debts_inst_date' => [
+            'en' => 'Payment Date:',
+            'da' => 'تاریخ پرداخت:',
+            'ps' => 'د تادیې نېټه:'
+        ],
+        'debts_inst_reason' => [
+            'en' => 'Payment Reason / Category:',
+            'da' => 'دلیل و منبع پرداخت:',
+            'ps' => 'د تادیې لامل:'
+        ],
+        'debts_inst_capital_share' => [
+            'en' => 'Principal Capital Share (%s):',
+            'da' => 'سهم اصل سرمایه (%s):',
+            'ps' => 'د اصلي پانګې ونډه (%s):'
+        ],
+        'debts_inst_profit_share' => [
+            'en' => 'Net Profit Share (%s):',
+            'da' => 'سهم مفاد خالص (%s):',
+            'ps' => 'د خالصې ګټې ونډه (%s):'
+        ],
+        'debts_inst_notes' => [
+            'en' => 'Payment Receipt Notes:',
+            'da' => 'توضیحات و شرح رسیدگی:',
+            'ps' => 'د تادیې د رسید تفصیل:'
+        ],
+        'debts_inst_submit' => [
+            'en' => 'Submit Payment',
+            'da' => 'ثبت و ذخیره پرداختی',
+            'ps' => 'تادیه ثبت او خوندي کړئ'
+        ],
+
+        // Customers Module Extended
+        'cust_directory_title' => [
+            'en' => 'Customer Accounts & VIP Directory',
+            'da' => 'باشگاه مشتریان و حسابات',
+            'ps' => 'د پیرودونکو ټولنه او حسابونه'
+        ],
+        'cust_directory_sub' => [
+            'en' => 'Complete management of wholesale & retail buyers, receivables, and transactions',
+            'da' => 'مدیریت کامل خریداران عمده و پرچون، استعلام مطالبات و سابقه معاملات',
+            'ps' => 'د ټولیز او پرچون پیرودونکو بشپړ مدیریت او حسابونه'
+        ],
+        'cust_total_registered' => [
+            'en' => 'Total Registered Customers',
+            'da' => 'مجموع مشتریان ثبت شده',
+            'ps' => 'ټول ثبت شوي پیرودونکي'
+        ],
+        'cust_wholesale_count' => [
+            'en' => 'Wholesale Buyers',
+            'da' => 'مشتریان خریدار عمده',
+            'ps' => 'ټولیز پلورونکي'
+        ],
+        'cust_retail_count' => [
+            'en' => 'Retail Customers',
+            'da' => 'مشتریان پرچون عادی',
+            'ps' => 'عادي پرچون پیرودونکي'
+        ],
+        'cust_receivables_total' => [
+            'en' => 'Total Outstanding Receivables',
+            'da' => 'مجموع طلبات معوقه از مشتریان',
+            'ps' => 'له پیرودونکو پاتې ټول طلبونه'
+        ],
+        'cust_search_placeholder' => [
+            'en' => 'Search name, phone number, company...',
+            'da' => 'جستجوی نام، شماره تماس، نام شرکت...',
+            'ps' => 'د نوم، تلیفون، شرکت پلټنه...'
+        ],
+        'cust_type_all' => [
+            'en' => 'All Customer Types',
+            'da' => 'همه انواع مشتری',
+            'ps' => 'د پیرودونکو ټول ډولونه'
+        ],
+        'cust_type_wholesale' => [
+            'en' => 'Wholesale Buyers',
+            'da' => 'خریداران عمده',
+            'ps' => 'ټولیز پیرودونکي'
+        ],
+        'cust_type_retail' => [
+            'en' => 'Retail Buyers',
+            'da' => 'خریداران پرچون',
+            'ps' => 'پرچون پیرودونکي'
+        ],
+        'cust_type_partner' => [
+            'en' => 'Business Partners',
+            'da' => 'همکاران تجارتی',
+            'ps' => 'سوداګریز همکاران'
+        ],
+        'cust_col_name' => [
+            'en' => 'Customer Name',
+            'da' => 'نام و مشخصات مشتری',
+            'ps' => 'د پیرودونکي نوم او ځانګړنې'
+        ],
+        'cust_col_type' => [
+            'en' => 'Type',
+            'da' => 'نوعیت',
+            'ps' => 'ډول'
+        ],
+        'cust_col_company' => [
+            'en' => 'Company / Store',
+            'da' => 'شرکت / دکان',
+            'ps' => 'شرکت / هټۍ'
+        ],
+        'cust_col_phone' => [
+            'en' => 'Phone Number',
+            'da' => 'شماره تماس',
+            'ps' => 'د تلیفون شمېره'
+        ],
+        'cust_col_balance' => [
+            'en' => 'Receivables / Debts',
+            'da' => 'مانده طلبات / قرضه',
+            'ps' => 'پاتې پورونه'
+        ],
+        'cust_col_actions' => [
+            'en' => 'Actions',
+            'da' => 'عملیات',
+            'ps' => 'کړنې'
+        ],
+        'cust_btn_new' => [
+            'en' => 'Register New Customer',
+            'da' => 'ثبت مشتری جدید',
+            'ps' => 'نوی پیرودونکی ثبتول'
+        ],
+        'cust_btn_view_debts' => [
+            'en' => 'View Receivables',
+            'da' => 'مشاهده قرضه‌ها',
+            'ps' => 'د پورونو لیدل'
+        ],
+        'cust_btn_ledger' => [
+            'en' => 'Account Ledger',
+            'da' => 'دفتر حساب',
+            'ps' => 'د حساب کتاب'
+        ],
+        'cust_vip_preview_alert' => [
+            'en' => 'Customer module is running in preview mode. License is required to save new VIP records.',
+            'da' => 'ماژول مشتریان در حالت پیش‌نمایش فعال است. جهت ثبت و ذخیره داده‌ها نیاز به تهیه لایسنس دارید.',
+            'ps' => 'د پیرودونکو ماډل په آزمایښتي حالت کې دی. د نویو VIP معلوماتو لپاره لایسنس ته اړتیا ده.'
+        ],
+        'cust_activate_license' => [
+            'en' => 'Activate License',
+            'da' => 'فعال‌سازی لایسنس',
+            'ps' => 'لایسنس فعالول'
+        ],
+        'cust_person_unit' => [
+            'en' => 'persons',
+            'da' => 'نفر',
+            'ps' => 'تنه'
+        ],
+        'cust_company_unit' => [
+            'en' => 'companies',
+            'da' => 'شخص/شرکت',
+            'ps' => 'شرکتونه'
+        ],
+        'cust_clear_filter' => [
+            'en' => 'Clear Filter',
+            'da' => 'پاک کردن فیلتر',
+            'ps' => 'فلټر پاکول'
+        ],
+        'cust_modal_title' => [
+            'en' => 'Register New Customer Profile',
+            'da' => 'ثبت پروفایل مشتری جدید',
+            'ps' => 'د نوي پیرودونکي پروفایل ثبتول'
+        ],
+        'cust_modal_fullname' => [
+            'en' => 'Full Customer Name:',
+            'da' => 'نام و تخلص کامل مشتری:',
+            'ps' => 'د پیرودونکي بشپړ نوم:'
+        ],
+        'cust_modal_type_label' => [
+            'en' => 'Customer Tier / Type:',
+            'da' => 'نوعیت مشتری:',
+            'ps' => 'د پیرودونکي ډول:'
+        ],
+        'cust_modal_company_name' => [
+            'en' => 'Store / Company Name:',
+            'da' => 'نام دکان یا شرکت:',
+            'ps' => 'د هټۍ یا شرکت نوم:'
+        ],
+        'cust_modal_address' => [
+            'en' => 'Address / City / Location:',
+            'da' => 'آدرس / ولایت / موقعیت:',
+            'ps' => 'پته / ښار / ځای:'
+        ],
+        'cust_modal_notes' => [
+            'en' => 'Notes & Terms:',
+            'da' => 'توضیحات و شرایط مشتری:',
+            'ps' => 'توضیحات او یادښتونه:'
+        ],
+        'cust_modal_submit' => [
+            'en' => 'Save Customer Profile',
+            'da' => 'ثبت و ذخیره مشتری',
+            'ps' => 'پیرودونکی خوندي کول'
+        ],
+
+        // Expenses Module Extended
+        'exp_page_title' => [
+            'en' => 'Store Operating Expenses (Separated from Losses)',
+            'da' => 'مدیریت مصارف جاری دکان (تفکیک شده از ضرر)',
+            'ps' => 'د هټۍ روان لګښتونه (له تاوانونو جلا)'
+        ],
+        'exp_page_sub' => [
+            'en' => 'Track operational overhead, rent, electricity, refreshments, salaries, and logistics',
+            'da' => 'ثبت و محاسبه مصارف عملیاتی، کرایه، بل برق، نان، معاشات و ترانسپورت دکان',
+            'ps' => 'د کرایې، برېښنا، ډوډۍ او معاشونو لګښتونه'
+        ],
+        'exp_go_to_losses' => [
+            'en' => 'Go to Stock Damages & Losses',
+            'da' => 'رفتن به ضرر و خسارات اجناس',
+            'ps' => 'د توکو زیان او تاوان ته تلل'
+        ],
+        'exp_print_table' => [
+            'en' => 'Print Table',
+            'da' => 'چاپ جدول',
+            'ps' => 'جدول چاپول'
+        ],
+        'exp_today' => [
+            'en' => "Today's Expenses",
+            'da' => 'مصارف امروز',
+            'ps' => 'د نن لګښتونه'
+        ],
+        'exp_this_month' => [
+            'en' => "This Month's Expenses",
+            'da' => 'مصارف این ماه',
+            'ps' => 'د دې میاشتې لګښتونه'
+        ],
+        'exp_all_time' => [
+            'en' => 'All-Time Operating Expenses',
+            'da' => 'مجموع کل مصارف جاری',
+            'ps' => 'ټول روان لګښتونه'
+        ],
+        'exp_add_title' => [
+            'en' => 'Register New Expense',
+            'da' => 'ثبت مصرف جدید',
+            'ps' => 'نوی لګښت ثبتول'
+        ],
+        'exp_category_select' => [
+            'en' => 'Expense Category:',
+            'da' => 'دسته‌بندی مصرف:',
+            'ps' => 'د لګښت ډول:'
+        ],
+        'exp_amount_label' => [
+            'en' => 'Expense Amount (%s):',
+            'da' => 'مبلغ مصرف (%s):',
+            'ps' => 'د لګښت اندازه (%s):'
+        ],
+        'exp_date_label' => [
+            'en' => 'Expense Date:',
+            'da' => 'تاریخ مصرف:',
+            'ps' => 'د لګښت نېټه:'
+        ],
+        'exp_desc_label' => [
+            'en' => 'Description & Details:',
+            'da' => 'توضیحات و شرح مصرف:',
+            'ps' => 'توضیحات او تفصیل:'
+        ],
+        'exp_btn_save' => [
+            'en' => 'Save Expense',
+            'da' => 'ثبت و ذخیره مصرف',
+            'ps' => 'لګښت خوندي کول'
+        ],
+        'exp_list_title' => [
+            'en' => 'Expense Records List',
+            'da' => 'لست مصارف ثبت شده',
+            'ps' => 'د ثبت شوو لګښتونو لست'
+        ],
+        'exp_filter_all_cats' => [
+            'en' => 'All Categories',
+            'da' => 'همه دسته‌ها',
+            'ps' => 'ټول ډولونه'
+        ],
+        'exp_col_cat' => [
+            'en' => 'Category',
+            'da' => 'دسته‌بندی',
+            'ps' => 'ډلبندي'
+        ],
+        'exp_col_amount' => [
+            'en' => 'Amount',
+            'da' => 'مبلغ',
+            'ps' => 'اندازه'
+        ],
+        'exp_col_date' => [
+            'en' => 'Date',
+            'da' => 'تاریخ',
+            'ps' => 'نېټه'
+        ],
+        'exp_col_desc' => [
+            'en' => 'Description',
+            'da' => 'شرح مصرف',
+            'ps' => 'تفصیل'
+        ],
+        'exp_col_user' => [
+            'en' => 'Recorded By',
+            'da' => 'ثبت کننده',
+            'ps' => 'ثبتوونکی'
+        ],
+        'exp_locked_notice' => [
+            'en' => 'Shop Expenses module is currently locked by security settings.',
+            'da' => 'گزینه مصارف دکان در حال حاضر قفل می‌باشد',
+            'ps' => 'د هټۍ د لګښتونو برخه اوس مهال قلف ده'
+        ],
+        'exp_locked_desc' => [
+            'en' => 'According to security settings, expense entry is locked. You can unlock it in Super Admin panel (PIN: 2277512).',
+            'da' => 'طبق تنظیمات امنیتی، ثبت و ویرایش مصارف قفل است. کنترل و بازگشایی آن در پنل سوپر ادمین (پین ۲۲۷۷۵۱۲) انجام می‌شود.',
+            'ps' => 'د امنیتي تنظیماتو له مخې دا برخه بنده ده. په سوپر اډمین کې یې خلاصولای شئ.'
+        ],
+        'exp_unlock_btn' => [
+            'en' => 'Unlock in Super Admin Panel',
+            'da' => 'بازگشایی در پنل سوپر ادمین',
+            'ps' => 'په سوپر اډمین پینل کې خلاصول'
+        ],
+        'exp_license_details' => [
+            'en' => 'View License Details',
+            'da' => 'مشاهده جزئیات لایسنس',
+            'ps' => 'د لایسنس تفصیلات کتل'
+        ],
+
+        // Losses Module Extended
+        'loss_page_title' => [
+            'en' => 'Damaged Goods & Stock Losses (Separated from Expenses)',
+            'da' => 'مدیریت ضرر و خسارات اجناس (تفکیک شده از مصارف)',
+            'ps' => 'د توکو تاوان او زیان (له لګښتونو جلا)'
+        ],
+        'loss_page_sub' => [
+            'en' => 'Record losses from broken screens, component damage, price drops, or lost stock',
+            'da' => 'ثبت خسارات ناشی از شکستگی صفحه، سوختگی قطعات، افت قیمت یا مفقودی اجناس گدام',
+            'ps' => 'د سکرین ماتېدو، سوځېدو او تاوان ثبتول'
+        ],
+        'loss_go_to_expenses' => [
+            'en' => 'Go to Operating Expenses',
+            'da' => 'رفتن به مصارف دکان',
+            'ps' => 'د هټۍ لګښتونو ته تلل'
+        ],
+        'loss_today' => [
+            'en' => "Today's Losses",
+            'da' => 'خسارات امروز',
+            'ps' => 'د نن تاوانونه'
+        ],
+        'loss_this_month' => [
+            'en' => "This Month's Losses",
+            'da' => 'خسارات این ماه',
+            'ps' => 'د دې میاشتې تاوانونه'
+        ],
+        'loss_all_time' => [
+            'en' => 'All-Time Total Losses',
+            'da' => 'مجموع کل خسارات',
+            'ps' => 'ټول تاوانونه'
+        ],
+        'loss_add_title' => [
+            'en' => 'Register New Damage / Loss',
+            'da' => 'ثبت خسارت و ضرر جدید',
+            'ps' => 'نوی تاوان ثبتول'
+        ],
+        'loss_stock_select' => [
+            'en' => 'Select Item from Warehouse Stock:',
+            'da' => 'انتخاب جنس آسیب‌دیده از گدام:',
+            'ps' => 'له ګودام څخه د جنس ټاکل:'
+        ],
+        'loss_stock_placeholder' => [
+            'en' => '-- General / Non-Stock Loss --',
+            'da' => '-- خسارت عمومی / خارج از گدام --',
+            'ps' => '-- عمومي تاوان / له ګودام بهر --'
+        ],
+        'loss_reason_select' => [
+            'en' => 'Damage Cause / Reason:',
+            'da' => 'علت و نوعیت خسارت:',
+            'ps' => 'د زیان لامل:'
+        ],
+        'loss_qty_label' => [
+            'en' => 'Damaged Quantity (Units):',
+            'da' => 'تعداد خسارت‌دیده (عدد):',
+            'ps' => 'د زیانمنو شمېر (دانې):'
+        ],
+        'loss_amount_label' => [
+            'en' => 'Total Loss Value (%s):',
+            'da' => 'مبلغ مجموع خسارت (%s):',
+            'ps' => 'د ټول تاوان اندازه (%s):'
+        ],
+        'loss_action_label' => [
+            'en' => 'Warehouse Stock Action:',
+            'da' => 'نحوه اقدام در گدام:',
+            'ps' => 'په ګودام کې اقدام:'
+        ],
+        'loss_action_strike' => [
+            'en' => 'Deduct from healthy stock & keep damage note',
+            'da' => 'کسر از موجودی سالم و ثبت یادداشت خسارت',
+            'ps' => 'له روغې زېرمې کسرول او یادښت ساتل'
+        ],
+        'loss_action_delete' => [
+            'en' => 'Delete entire product row from warehouse',
+            'da' => 'حذف کامل ردیف کالا از گدام',
+            'ps' => 'له ګودام څخه د توکي بشپړ ړنګول'
+        ],
+        'loss_btn_save' => [
+            'en' => 'Record Damage / Loss',
+            'da' => 'ثبت ضرر و کسر از گدام',
+            'ps' => 'تاوان ثبتول او له ګودام کمول'
+        ],
+        'loss_list_title' => [
+            'en' => 'Recorded Damages & Losses List',
+            'da' => 'لست ضرر و خسارات ثبت شده',
+            'ps' => 'د ثبت شوو تاوانونو لست'
+        ],
+
+        // Partners & Capital Module Extended
+        'partners_card_title' => [
+            'en' => 'Partnership Accounts & Profit Sharing',
+            'da' => 'حساب شرکا و تسهیم مفاد',
+            'ps' => 'د شریکانو حساب او د ګټې وېش'
+        ],
+        'partners_net_profit_desc' => [
+            'en' => 'Total Distributable Net Store Profit',
+            'da' => 'مجموع مفاد خالص قابل تقسیم دکان',
+            'ps' => 'د هټۍ د وېش وړ خالص ګټه'
+        ],
+        'partners_general_capital' => [
+            'en' => 'General Capital',
+            'da' => 'سرمایه عمومی',
+            'ps' => 'عمومي پانګه'
+        ],
+        'partners_mudaraba_link' => [
+            'en' => 'Dedicated Mudaraba Account (Foreign Goods)',
+            'da' => 'حساب اختصاصی مضاربت (کالای خارجی)',
+            'ps' => 'د مضاربت ځانګړی حساب (بهرني توکي)'
+        ],
+        'partners_capital_turnover' => [
+            'en' => 'Capital Turnover Management',
+            'da' => 'مدیریت گردش سرمایه دکان',
+            'ps' => 'د پانګې د څرخ مدیریت'
+        ],
+        'partners_add_title' => [
+            'en' => 'Register New Partner',
+            'da' => 'ثبت شریک جدید',
+            'ps' => 'نوی شریک ثبتول'
+        ],
+        'partners_name_label' => [
+            'en' => 'Partner Name:',
+            'da' => 'نام شریک:',
+            'ps' => 'د شریک نوم:'
+        ],
+        'partners_phone_label' => [
+            'en' => 'Phone Number:',
+            'da' => 'شماره تماس:',
+            'ps' => 'د تلیفون شمېره:'
+        ],
+        'partners_share_label' => [
+            'en' => 'Profit Share (%):',
+            'da' => 'فیصدی سهم از مفاد (٪):',
+            'ps' => 'د ګټې سلنه (٪):'
+        ],
+        'partners_inv_label' => [
+            'en' => 'Initial Investment Amount (%s):',
+            'da' => 'مبلغ سرمایه‌گذاری اولیه (%s):',
+            'ps' => 'د لومړنۍ پانګونې اندازه (%s):'
+        ],
+        'partners_date_label' => [
+            'en' => 'Partnership Start Date:',
+            'da' => 'تاریخ آغاز همکاری:',
+            'ps' => 'د همکارۍ د پیل نېټه:'
+        ],
+        'partners_notes_label' => [
+            'en' => 'Terms & Conditions:',
+            'da' => 'توضیحات و شرایط شراکت:',
+            'ps' => 'د شراکت شرایط:'
+        ],
+        'partners_btn_save' => [
+            'en' => 'Save Partner Details',
+            'da' => 'ثبت مشخصات شریک',
+            'ps' => 'د شریک ثبتول'
+        ],
+        'partners_list_title' => [
+            'en' => 'Store Partners List & Profit Share',
+            'da' => 'لست شرکاء دکان و سهم از سود',
+            'ps' => 'د هټۍ د شریکانو لست او د ګټې ونډه'
+        ],
+
+        // Mudaraba Module Extended
+        'mud_page_title' => [
+            'en' => 'Dedicated Mudaraba Account (Foreign Sourcing)',
+            'da' => 'حساب اختصاصی مضاربت و سرمایه‌گذاری خارجی',
+            'ps' => 'د بهرني تجارت او مضاربت ځانګړی حساب'
+        ],
+        'mud_page_sub' => [
+            'en' => 'Joint venture investments, Dubai & foreign imports, transparent profit sharing',
+            'da' => 'سرمایه‌گذاری مشترک، بارهای وارداتی دبی، محاسبه دقیق سود و تصفیه حساب',
+            'ps' => 'ګډه پانګونه، له دوبۍ وارداتي بارونه او د ګټې روڼ وېش'
+        ],
+        'mud_active_capital' => [
+            'en' => 'Active Contracts Capital',
+            'da' => 'سرمایه در گردش قراردادهای فعال',
+            'ps' => 'په روانو قراردادونو کې پانګه'
+        ],
+        'mud_total_sales' => [
+            'en' => 'Total Sales from Mudaraba Goods',
+            'da' => 'مجموع فروشات کالاهای مضاربت',
+            'ps' => 'د مضاربت د توکو ټول پلور'
+        ],
+        'mud_total_profit' => [
+            'en' => 'Total Realized Profit',
+            'da' => 'مجموع مفاد حاصل شده',
+            'ps' => 'ټوله ترلاسه شوې ګټه'
+        ],
+        'mud_paid_to_partner' => [
+            'en' => 'Profit Paid to Investor',
+            'da' => 'مفاد پرداخت شده به شریک',
+            'ps' => 'شریک ته ورکړل شوې ګټه'
+        ],
+        'mud_returned_cap' => [
+            'en' => 'Returned Capital Principal',
+            'da' => 'استرداد اصل سرمایه',
+            'ps' => 'بېرته ورکړل شوې پانګه'
+        ],
+        'mud_btn_new' => [
+            'en' => 'Register New Mudaraba Contract',
+            'da' => 'ثبت قرارداد مضاربت جدید',
+            'ps' => 'د مضاربت نوی قرارداد'
+        ],
+        'mud_contracts_list' => [
+            'en' => 'Contracts & Joint Shipments List',
+            'da' => 'لست قراردادها و محموله‌های مضاربت',
+            'ps' => 'د مضاربت د قراردادونو لست'
+        ],
+        'mud_contract_details' => [
+            'en' => 'Contract Details',
+            'da' => 'جزئیات قرارداد',
+            'ps' => 'د قرارداد تفصیل'
+        ],
+        'mud_record_sales' => [
+            'en' => 'Record Sales & Profit',
+            'da' => 'ثبت فروش و مفاد',
+            'ps' => 'پلور او ګټه ثبتول'
+        ],
+        'mud_payout' => [
+            'en' => 'Payout & Settlement',
+            'da' => 'تسویه و پرداخت وجه',
+            'ps' => 'تصفیه او د پیسو ورکړه'
+        ],
+        'mud_print_sheet' => [
+            'en' => 'Print Official Sheet',
+            'da' => 'چاپ صورتحساب',
+            'ps' => 'د صورتحساب چاپ'
+        ],
+
+        // Reports Module Extended
+        'rep_page_title' => [
+            'en' => 'Comprehensive Financial & Accounting Reports',
+            'da' => 'گزارشات مالی و حسابداری دکان',
+            'ps' => 'د هټۍ مالي او حسابداري راپورونه'
+        ],
+        'rep_filter_title' => [
+            'en' => 'Filter Store Financial & Profit Reports',
+            'da' => 'فیلتر گزارشات مالی و سود دکان',
+            'ps' => 'د مالي او ګټې راپورونو فلټر'
+        ],
+        'rep_time_range' => [
+            'en' => 'Time Range: From %s to %s',
+            'da' => 'بازه زمانی: از %s تا %s',
+            'ps' => 'د وخت موده: له %s څخه تر %s'
+        ],
+        'rep_today' => [
+            'en' => 'Today',
+            'da' => 'امروز',
+            'ps' => 'نن'
+        ],
+        'rep_7days' => [
+            'en' => 'Past 7 Days',
+            'da' => '۷ روز اخیر',
+            'ps' => 'وروستۍ ۷ ورځې'
+        ],
+        'rep_this_month' => [
+            'en' => 'This Month',
+            'da' => 'این ماه',
+            'ps' => 'دا میاشت'
+        ],
+        'rep_print' => [
+            'en' => 'Print Financial Report',
+            'da' => 'چاپ گزارش',
+            'ps' => 'راپور چاپول'
+        ],
+        'rep_date_from' => [
+            'en' => 'From Date:',
+            'da' => 'از تاریخ:',
+            'ps' => 'له نېټې:'
+        ],
+        'rep_date_to' => [
+            'en' => 'To Date:',
+            'da' => 'تا تاریخ:',
+            'ps' => 'تر نېټې:'
+        ],
+        'rep_apply_date' => [
+            'en' => 'Apply Filter',
+            'da' => 'اعمال تاریخ',
+            'ps' => 'نېټه عملي کول'
+        ],
+        'rep_period_sales' => [
+            'en' => 'Period Sales',
+            'da' => 'فروشات این بازه',
+            'ps' => 'د دې دورې پلور'
+        ],
+        'rep_period_gross' => [
+            'en' => 'Period Gross Profit',
+            'da' => 'مفاد ناخالص فروش',
+            'ps' => 'د پلور ناخالصه ګټه'
+        ],
+        'rep_period_expenses' => [
+            'en' => 'Operating Expenses',
+            'da' => 'مصارف جاری دکان',
+            'ps' => 'روان لګښتونه'
+        ],
+        'rep_period_losses' => [
+            'en' => 'Damaged Goods / Losses',
+            'da' => 'ضرر و خسارات اجناس',
+            'ps' => 'د توکو زیان او تاوان'
+        ],
+        'rep_period_net_profit' => [
+            'en' => 'Final Net Profit',
+            'da' => 'مفاد خالص نهایی',
+            'ps' => 'وروستۍ خالص ګټه'
+        ],
+        'rep_period_net_loss' => [
+            'en' => 'Final Net Loss',
+            'da' => 'ضرر خالص نهایی',
+            'ps' => 'وروستی خالص زیان'
+        ],
+        'rep_cash_received' => [
+            'en' => 'Cash Collected at Counter',
+            'da' => 'نقدینگی وصول شده نقداً',
+            'ps' => 'نغدې ترلاسه شوې پیسې'
+        ],
+        'rep_debts_added' => [
+            'en' => 'New Receivables Added',
+            'da' => 'قرضه‌های ثبت شده در این بازه',
+            'ps' => 'په دې دوره کې ثبت شوي پورونه'
+        ],
+        'rep_top_selling_title' => [
+            'en' => 'Top-Selling Products in Period',
+            'da' => 'پرفروش‌ترین اجناس در این بازه',
+            'ps' => 'ډېر پلورل شوي توکي'
+        ],
+        'rep_invoices_history' => [
+            'en' => 'Invoices Issued in Period',
+            'da' => 'بل‌های صادر شده در این بازه',
+            'ps' => 'په دې دوره کې صادر شوي بلونه'
+        ],
+
+        // AI Advisor Module Extended
+        'ai_page_title' => [
+            'en' => 'Smart AI Shop Accountant & Advisor',
+            'da' => 'هوش مصنوعی حسابدار و مشاور مالی دکان',
+            'ps' => 'د هټۍ د محاسبې هوښیار سلاکار'
+        ],
+        'ai_page_sub' => [
+            'en' => 'Instant financial insights, sales demand forecasting, and profit audit',
+            'da' => 'مشاوره هوشمند، پیش‌بینی فروش و پاسخ فوری به سوالات مالی و سود دکان',
+            'ps' => 'هوښیاره مشوره او مالي شننه'
+        ],
+        'ai_chat_title' => [
+            'en' => 'Ask Shop AI Accountant',
+            'da' => 'گفتگو با هوش مصنوعی حسابدار',
+            'ps' => 'له هوښیار محاسب سره خبرې'
+        ],
+        'ai_input_placeholder' => [
+            'en' => 'Ask about store profit, top items, reorder suggestions...',
+            'da' => 'سوال خود را درباره سود، فروش، بهترین اجناس بپرسید...',
+            'ps' => 'د ګټې او پلور په اړه خپله پوښتنه ولیکئ...'
+        ],
+        'ai_btn_ask' => [
+            'en' => 'Send Question',
+            'da' => 'ارسال سوال',
+            'ps' => 'پوښتنه ولېږئ'
+        ],
+        'ai_quick_suggestions' => [
+            'en' => 'Suggested Analyses',
+            'da' => 'پرسش‌های پیشنهادی سریع',
+            'ps' => 'وړاندیز شوې پوښتنې'
+        ],
+
+        // Backup Module Extended
+        'bk_page_title' => [
+            'en' => 'Database Backup & Data Security',
+            'da' => 'پشتیبان‌گیری دیتابیس و امنیت اطلاعات',
+            'ps' => 'د ډیټابیس شاتړ او د معلوماتو خوندیتوب'
+        ],
+        'bk_page_sub' => [
+            'en' => 'Safely download database backups and protect business data',
+            'da' => 'تهیه نسخه پشتیبان خودکار و دستی از دیتابیس دکان و بازگردانی اطلاعات',
+            'ps' => 'د معلوماتو خوندي شاتړ اخیستل'
+        ],
+        'bk_download_sqlite' => [
+            'en' => 'Download SQLite Database',
+            'da' => 'دانلود فایل دیتابیس SQLite',
+            'ps' => 'د SQLite فایل ډاونلوډ'
+        ],
+        'bk_download_sql' => [
+            'en' => 'Download SQL Dump Script',
+            'da' => 'دانلود اسکریپت SQL Dump',
+            'ps' => 'د SQL اسکرېپټ ډاونلوډ'
+        ],
+        'bk_snapshots_title' => [
+            'en' => 'Local Backup Snapshots',
+            'da' => 'نسخه‌های پشتیبان محلی',
+            'ps' => 'ځايي شاتړونه'
+        ],
+        'bk_create_snapshot' => [
+            'en' => 'Create New Instant Backup',
+            'da' => 'ایجاد پشتیبان جدید',
+            'ps' => 'نوی شاتړ جوړول'
+        ],
+
+        // About Module Extended
+        'ab_dev_title' => [
+            'en' => 'Technical Architect & Developer',
+            'da' => 'توسعه‌دهنده و طراح سیستم',
+            'ps' => 'د سیسټم طراح او انجینر'
+        ],
+        'ab_dev_name' => [
+            'en' => 'Ahmad Najeem Nik',
+            'da' => 'احمد نجیم نیک',
+            'ps' => 'احمد نجیم نیک'
+        ],
+        'ab_dev_desc' => [
+            'en' => 'Senior Software Architect specializing in enterprise retail ERPs, accounting systems, and practical AI integrations',
+            'da' => 'توسعه‌دهنده ارشد نرم‌افزارهای تجاری، سامانه‌های مالی یکپارچه و هوش مصنوعی',
+            'ps' => 'د سوداګریزو او مالي سافټویرونو لوړپوړی انجینر'
+        ],
+        'ab_call_btn' => [
+            'en' => 'Call Phone: +93 783 788 278',
+            'da' => 'تماس تیلیفونی: ۰۷۸۳۷۸۸۲۷۸',
+            'ps' => 'تلیفوني اړیکه: ۰۷۸۳۷۸۸۲۷۸'
+        ],
+        'ab_whatsapp_btn' => [
+            'en' => 'WhatsApp Chat',
+            'da' => 'ارتباط در واتساپ',
+            'ps' => 'په واټساپ کې اړیکه'
+        ],
+        'ab_system_title' => [
+            'en' => 'About NiKXor Shop Management',
+            'da' => 'درباره نرم‌افزار NiKXor',
+            'ps' => 'د NiKXor سافټویر په اړه'
+        ],
+        'ab_system_desc' => [
+            'en' => 'NiKXor is an advanced, offline-first, high-precision retail management and multi-item invoicing system specifically engineered for mobile phone shops, accessory importers, and repair centers.',
+            'da' => 'نیک‌زور یک سیستم پیشرفته، بسیار سریع و دقیق مدیریت فروشگاه، صدور بل چاپی و حسابداری اختصاصی برای دکان‌های مبایل، اکسسیری و پرزه‌جات است.',
+            'ps' => 'نیک‌زور د موبایل پلورنځیو لپاره د پلور، بلونو او حسابدارۍ یو ځانګړی او چټک سیسټم دی.'
         ]
     ];
 
@@ -1934,6 +2859,11 @@ function __($key, $fallback = '') {
     if (isset($dict[$key][$lang])) {
         return $dict[$key][$lang];
     }
+    // Check phrase translation
+    $phrase = get_phrase_translation($key, $lang);
+    if ($phrase !== null) {
+        return $phrase;
+    }
     // Fallback to English
     if (isset($dict[$key]['en'])) {
         return $dict[$key]['en'];
@@ -1942,7 +2872,31 @@ function __($key, $fallback = '') {
     if (isset($dict[$key]['da'])) {
         return $dict[$key]['da'];
     }
+    if ($lang === 'en' && !empty($fallback)) {
+        $trans = get_phrase_translation($fallback, 'en');
+        if ($trans !== null) return $trans;
+    }
     return !empty($fallback) ? $fallback : $key;
+}
+
+/**
+ * Strict tri-lingual isolation helper:
+ * Returns 100% English when lang=en, 100% Dari when lang=da, 100% Pashto when lang=ps.
+ *
+ * @param string $en English translation
+ * @param string $da Dari translation
+ * @param string $ps Pashto translation
+ * @return string
+ */
+function __t($en, $da, $ps = '') {
+    $lang = get_current_lang();
+    if ($lang === 'en') {
+        return $en;
+    }
+    if ($lang === 'ps') {
+        return !empty($ps) ? $ps : $da;
+    }
+    return $da;
 }
 
 /**
@@ -1953,6 +2907,98 @@ function __($key, $fallback = '') {
  */
 function __e($key, $fallback = '') {
     echo htmlspecialchars(__($key, $fallback));
+}
+
+/**
+ * Universal phrase translator for dynamic text and system phrases
+ */
+function get_phrase_translation($phrase, $lang) {
+    static $phraseMap = null;
+    if ($phraseMap === null) {
+        $phraseMap = [
+            'سیستم مدیریت دکان' => ['en' => 'Shop Management System', 'da' => 'سیستم مدیریت دکان', 'ps' => 'د هټۍ مدیریت سیسټم'],
+            'داشبورد عمومی دکان' => ['en' => 'General Shop Dashboard', 'da' => 'داشبورد عمومی دکان', 'ps' => 'د هټۍ عمومي ډشبورډ'],
+            'فروختن جنس (بل جدید)' => ['en' => 'Sell Product (New Invoice)', 'da' => 'فروختن جنس (بل جدید)', 'ps' => 'د جنس پلورل (نوی بل)'],
+            'فروختن جنس (بل چند جنسی جدید)' => ['en' => 'Sell Product (Multi-Item Invoice)', 'da' => 'فروختن جنس (بل چند جنسی جدید)', 'ps' => 'د څو جنسیز بل پلورل'],
+            'آرشیف بل ها' => ['en' => 'Invoices Archive', 'da' => 'آرشیف بل‌ها', 'ps' => 'د بلونو آرشیف'],
+            'آرشیف بل‌ها' => ['en' => 'Invoices Archive', 'da' => 'آرشیف بل‌ها', 'ps' => 'د بلونو آرشیف'],
+            'مدیریت گدام و لست اجناس' => ['en' => 'Warehouse & Inventory Management', 'da' => 'مدیریت گدام و لست اجناس', 'ps' => 'د ګودام او اجناسو مدیریت'],
+            'ثبت جنس جدید در گدام' => ['en' => 'Add New Stock Item', 'da' => 'ثبت جنس جدید در گدام', 'ps' => 'په ګودام کې نوی جنس ثبتول'],
+            'ویرایش مشخصات جنس در گدام' => ['en' => 'Edit Stock Item Details', 'da' => 'ویرایش مشخصات جنس در گدام', 'ps' => 'د جنس مشخصات سمول'],
+            'مدیریت قرضه ها و حسابات' => ['en' => 'Debts & Accounts Management', 'da' => 'مدیریت قرضه ها و حسابات', 'ps' => 'د پورونو او حسابونو مدیریت'],
+            'مدیریت قرضه ها، طلبات و تفکیک سرمایه و مفاد' => ['en' => 'Debts, Receivables & Capital/Profit Segregation', 'da' => 'مدیریت قرضه ها، طلبات و تفکیک سرمایه و مفاد', 'ps' => 'د پورونو، طلبونو او د پانګې او ګټې بېلوالی'],
+            'مشتریان و حسابات' => ['en' => 'Customers & Accounts', 'da' => 'مشتریان و حسابات', 'ps' => 'پیرودونکي او حسابونه'],
+            'مدیریت مشتریان و حسابات VIP' => ['en' => 'VIP Customer Accounts & Directory', 'da' => 'مدیریت مشتریان و حسابات VIP', 'ps' => 'د VIP پیرودونکو مدیریت او حسابونه'],
+            'مصارف دکان' => ['en' => 'Shop Expenses', 'da' => 'مصارف دکان', 'ps' => 'د هټۍ لګښتونه'],
+            'مدیریت مصارف دکان' => ['en' => 'Shop Expenses Management', 'da' => 'مدیریت مصارف دکان', 'ps' => 'د هټۍ د لګښتونو مدیریت'],
+            'مدیریت مصارف جاری دکان (تفکیک شده از ضرر)' => ['en' => 'Operating Expenses Management (Segregated from Losses)', 'da' => 'مدیریت مصارف جاری دکان (تفکیک شده از ضرر)', 'ps' => 'د هټۍ د روانو لګښتونو مدیریت (له تاوان څخه جلا)'],
+            'ضرر و خسارات اجناس' => ['en' => 'Damaged Goods & Losses', 'da' => 'ضرر و خسارات اجناس', 'ps' => 'د توکو زیان او تاوان'],
+            'مدیریت ضرر و خسارات اجناس' => ['en' => 'Damaged Goods & Losses Management', 'da' => 'مدیریت ضرر و خسارات اجناس', 'ps' => 'د توکو د زیان او تاوان مدیریت'],
+            'مدیریت ضرر و خسارات اجناس (تفکیک شده از مصارف)' => ['en' => 'Damaged Goods & Losses Management (Segregated from Expenses)', 'da' => 'مدیریت ضرر و خسارات اجناس (تفکیک شده از مصارف)', 'ps' => 'د توکو د زیان او تاوان مدیریت (له لګښتونو څخه جلا)'],
+            'شرکاء و سرمایه دکان' => ['en' => 'Partners & Store Capital', 'da' => 'شرکاء و سرمایه دکان', 'ps' => 'شریکان او د هټۍ پانګه'],
+            'مدیریت شریک ها و سهم سرمایه' => ['en' => 'Manage Store Partners & Capital Shares', 'da' => 'مدیریت شریک ها و سهم سرمایه', 'ps' => 'د شریکانو او د پانګې د ونډو مدیریت'],
+            'سرمایه و مضاربت (خارجی)' => ['en' => 'Mudaraba Account (Foreign Sourcing)', 'da' => 'سرمایه و مضاربت (خارجی)', 'ps' => 'د مضاربت حساب (بهرني توکي)'],
+            'حساب اختصاصی مضاربت و سرمایه‌گذاری خارجی' => ['en' => 'Dedicated Mudaraba Account & Foreign Investments', 'da' => 'حساب اختصاصی مضاربت و سرمایه‌گذاری خارجی', 'ps' => 'د بهرني تجارت او مضاربت ځانګړی حساب'],
+            'گزارشات مالی و حسابداری دکان' => ['en' => 'Financial & Accounting Reports', 'da' => 'گزارشات مالی و حسابداری دکان', 'ps' => 'د هټۍ مالي او حسابداري راپورونه'],
+            'گزارشات جامع مالی' => ['en' => 'Comprehensive Financial Reports', 'da' => 'گزارشات جامع مالی', 'ps' => 'جامع مالي راپورونه'],
+            'هوش مصنوعی دکان' => ['en' => 'Shop AI Advisor', 'da' => 'هوش مصنوعی دکان', 'ps' => 'د هټۍ مصنوعي استخبارات'],
+            'هوش مصنوعی حسابدار و مشاور مالی دکان' => ['en' => 'Shop AI Accountant & Financial Advisor', 'da' => 'هوش مصنوعی حسابدار و مشاور مالی دکان', 'ps' => 'د هټۍ د محاسبې هوښیار سلاکار'],
+            'پشتیبان‌گیری (بک‌آپ)' => ['en' => 'Database Backup', 'da' => 'پشتیبان‌گیری (بک‌آپ)', 'ps' => 'د ډیټابیس شاتړ'],
+            'پشتیبان‌گیری دیتابیس و امنیت اطلاعات' => ['en' => 'Database Backup & Data Security', 'da' => 'پشتیبان‌گیری دیتابیس و امنیت اطلاعات', 'ps' => 'د ډیټابیس شاتړ او د معلوماتو خوندیتوب'],
+            'درباره برنامه و سازنده' => ['en' => 'About System & Developer', 'da' => 'درباره برنامه و سازنده', 'ps' => 'د سیسټم او جوړونکي په اړه'],
+            'درباره سامانه حسابی NiKXor و سازنده' => ['en' => 'About NiKXor Accounting System & Developer', 'da' => 'درباره سامانه حسابی NiKXor و سازنده', 'ps' => 'د نیک‌زور حسسابي سیسټم او جوړونکي په اړه'],
+            'کنترل پنل سوپر ادمین' => ['en' => 'Super Admin Control Panel', 'da' => 'کنترل پنل سوپر ادمین', 'ps' => 'د سوپر اډمین کنټرول پینل'],
+            'مدیریت دسته بندی های دکان' => ['en' => 'Shop Categories Management', 'da' => 'مدیریت دسته بندی های دکان', 'ps' => 'د هټۍ د کټګوریو مدیریت'],
+            'نمای گدام و موقعیت اجناس' => ['en' => 'Warehouse View & Item Locations', 'da' => 'نمای گدام و موقعیت اجناس', 'ps' => 'د ګودام لید او د توکو ځایونه'],
+            'گردش و حساب سرمایه دکان' => ['en' => 'Shop Capital & Turnover Ledger', 'da' => 'گردش و حساب سرمایه دکان', 'ps' => 'د هټۍ د پانګې څرخ او حساب'],
+            'طلب من از مردم (مشتریان)' => ['en' => 'Receivables (Customers Owe Store)', 'da' => 'طلب من از مردم (مشتریان)', 'ps' => 'له پیرودونکو څخه زما طلب'],
+            'مبالغی که دکان باید از خریداران وصول کند' => ['en' => 'Amounts due to be collected from buyers', 'da' => 'مبالغی که دکان باید از خریداران وصول کند', 'ps' => 'هغه پیسې چې هټۍ باید له پیرودونکو ترلاسه کړي'],
+            'قرضداری‌های من (طلب مردم از من)' => ['en' => 'Payables (Store Owes Creditors)', 'da' => 'قرضداری‌های من (طلب مردم از من)', 'ps' => 'خلکو ته زما پورونه'],
+            'طلب شرکت‌ها، عمده‌فروشان و اشخاص از دکان' => ['en' => 'Amounts owed to suppliers, wholesalers, and creditors', 'da' => 'طلب شرکت‌ها، عمده‌فروشان و اشخاص از دکان', 'ps' => 'پر هټۍ د شرکتونو او ټولیزو پلورونکو پورونه'],
+            'قرض‌الحسنه (اعتمادی و بدون سود)' => ['en' => 'Benevolent Loans (Interest-Free Qard Hasan)', 'da' => 'قرض‌الحسنه (اعتمادی و بدون سود)', 'ps' => 'قرض الحسنه (بې ګټې او باوري)'],
+            'کمک‌های مالی اعتمادی و بدون هیچ‌گونه سود' => ['en' => 'Trusted benevolent financial aids with zero interest', 'da' => 'کمک‌های مالی اعتمادی و بدون هیچ‌گونه سود', 'ps' => 'باوري او بې سوده مالي مرستې'],
+            'دفتر طلبات من از مردم و مشتریان' => ['en' => 'Receivables Ledger (Customers Owe Store)', 'da' => 'دفتر طلبات من از مردم و مشتریان', 'ps' => 'له خلکو او پیرودونکو څخه د طلبونو کتاب'],
+            'دفتر قرضداری‌های من به مردم' => ['en' => 'Payables Ledger (Store Owes Creditors)', 'da' => 'دفتر قرضداری‌های من به مردم', 'ps' => 'خلکو ته زما د پورونو کتاب'],
+            'دفتر قرض‌الحسنه (بدون سود)' => ['en' => 'Benevolent Loans Ledger (Zero Profit)', 'da' => 'دفتر قرض‌الحسنه (بدون سود)', 'ps' => 'د قرض‌الحسنه کتاب (بې سوده)'],
+            'ثبت قرضه / طلب جدید' => ['en' => 'Register New Debt / Loan', 'da' => 'ثبت قرضه / طلب جدید', 'ps' => 'نوی پور / طلب ثبتول'],
+            'حساب‌های باز' => ['en' => 'Open Accounts', 'da' => 'حساب‌های باز', 'ps' => 'خلاص حسابونه'],
+            'تسویه شده' => ['en' => 'Settled', 'da' => 'تسویه شده', 'ps' => 'تصفیه شوي'],
+            'همه' => ['en' => 'All', 'da' => 'همه', 'ps' => 'ټول'],
+            'انتخاب همه' => ['en' => 'Select All', 'da' => 'انتخاب همه', 'ps' => 'ټول ټاکل'],
+            'لغو انتخاب‌ها' => ['en' => 'Deselect All', 'da' => 'لغو انتخاب‌ها', 'ps' => 'ټاکنه لغوه کول'],
+            'حذف موارد انتخاب شده' => ['en' => 'Delete Selected', 'da' => 'حذف موارد انتخاب شده', 'ps' => 'ټاکل شوي ړنګول'],
+            'طرف حساب / شخص' => ['en' => 'Account / Contact Name', 'da' => 'طرف حساب / شخص', 'ps' => 'د کس / حساب نوم'],
+            'شماره تماس' => ['en' => 'Phone Number', 'da' => 'شماره تماس', 'ps' => 'د تلیفون شمېره'],
+            'نوعیت حساب' => ['en' => 'Account Classification', 'da' => 'نوعیت حساب', 'ps' => 'د حساب ډول'],
+            'مجموع قرضه' => ['en' => 'Total Debt', 'da' => 'مجموع قرضه', 'ps' => 'ټولټال پور'],
+            'رسیدگی شده و تفکیک (سرمایه / سود)' => ['en' => 'Paid & Breakdown (Capital / Profit)', 'da' => 'رسیدگی شده و تفکیک (سرمایه / سود)', 'ps' => 'تادیه شوې او بېلوالی (پانګه / ګټه)'],
+            'باقی‌مانده' => ['en' => 'Remaining Balance', 'da' => 'باقی‌مانده', 'ps' => 'پاتې پیسې'],
+            'وضعیت' => ['en' => 'Status', 'da' => 'وضعیت', 'ps' => 'حالت'],
+            'تاریخ ثبت' => ['en' => 'Date Recorded', 'da' => 'تاریخ ثبت', 'ps' => 'د ثبت نېټه'],
+            'عملیات' => ['en' => 'Actions', 'da' => 'عملیات', 'ps' => 'کړنې'],
+            'قرض‌الحسنه' => ['en' => 'Benevolent Loan', 'da' => 'قرض‌الحسنه', 'ps' => 'قرض الحسنه'],
+            'قرضداری من' => ['en' => 'Payable', 'da' => 'قرضداری من', 'ps' => 'زما پور'],
+            'طلب من' => ['en' => 'Receivable', 'da' => 'طلب من', 'ps' => 'زما طلب'],
+            'تسویه کامل' => ['en' => 'Fully Settled', 'da' => 'تسویه کامل', 'ps' => 'بشپړه تصفیه'],
+            'جاری (باز)' => ['en' => 'Active (Open)', 'da' => 'جاری (باز)', 'ps' => 'خلاص (پاتې)'],
+            'رسیدگی' => ['en' => 'Settle / Pay', 'da' => 'رسیدگی', 'ps' => 'تصفیه'],
+            'تفکیک' => ['en' => 'Breakdown', 'da' => 'تفکیک', 'ps' => 'بېلوالی'],
+            'ویرایش' => ['en' => 'Edit', 'da' => 'ویرایش', 'ps' => 'سمول'],
+            'حذف' => ['en' => 'Delete', 'da' => 'حذف', 'ps' => 'ړنګول'],
+            'ذخیره تغییرات' => ['en' => 'Save Changes', 'da' => 'ذخیره تغییرات', 'ps' => 'بدلونونه خوندي کړئ'],
+            'انصراف' => ['en' => 'Cancel', 'da' => 'انصراف', 'ps' => 'لغوه'],
+            'بستن پنجره' => ['en' => 'Close Window', 'da' => 'بستن پنجره', 'ps' => 'کړکۍ وتړئ'],
+            'سرمایه' => ['en' => 'Capital', 'da' => 'سرمایه', 'ps' => 'پانګه'],
+            'مفاد' => ['en' => 'Profit', 'da' => 'مفاد', 'ps' => 'ګټه'],
+            'هیچ رکوردی در این بخش یافت نشد.' => ['en' => 'No records found in this section.', 'da' => 'هیچ رکوردی در این بخش یافت نشد.', 'ps' => 'په دې برخه کې هېڅ ریکارډ ونه موندل شو.'],
+        ];
+    }
+
+    $t = trim($phrase);
+    if (isset($phraseMap[$t][$lang])) {
+        return $phraseMap[$t][$lang];
+    }
+    return null;
 }
 
 /**
@@ -2164,3 +3210,75 @@ function display_item_count($count) {
     if ($lang === "ps") return $num . " قلمه";
     return $num . " قلم";
 }
+
+function display_debt_status($status) {
+    $lang = get_current_lang();
+    $s = trim((string)$status);
+    if ($s === 'تسویه' || strtolower($s) === 'settled') {
+        if ($lang === 'en') return 'Settled';
+        if ($lang === 'ps') return 'تصفیه شوی';
+        return 'تسویه شده';
+    }
+    if ($lang === 'en') return 'Active (Open)';
+    if ($lang === 'ps') return 'خلاص (پاتې)';
+    return 'جاری (باز)';
+}
+
+function display_payment_reason($reason) {
+    $lang = get_current_lang();
+    $r = trim((string)$reason);
+    $map = [
+        "وصولی نسیه فروش موبایل" => ["en" => "Mobile Sale Installment", "da" => "وصولی نسیه فروش موبایل", "ps" => "د موبایل پلور قسط"],
+        "وصولی نسیه لوازم جانبی" => ["en" => "Accessories Sale Installment", "da" => "وصولی نسیه لوازم جانبی", "ps" => "د لوازمو پلور قسط"],
+        "تسویه حساب بل دکان" => ["en" => "Shop Invoice Settlement", "da" => "تسویه حساب بل دکان", "ps" => "د هټۍ د بل تصفیه"],
+        "برگشت قرض نقدی / دستی" => ["en" => "Cash Loan Return", "da" => "برگشت قرض نقدی / دستی", "ps" => "د نغدي پور بېرته ورکړه"],
+        "بازپرداخت بدهی دکان به عمده‌فروش" => ["en" => "Payment to Wholesaler", "da" => "بازپرداخت بدهی دکان به عمده‌فروش", "ps" => "عمده پلورونکي ته د پور تادیه"],
+        "پیش‌پرداخت اولیه هنگام ثبت حساب" => ["en" => "Initial Down Payment", "da" => "پیش‌پرداخت اولیه هنگام ثبت حساب", "ps" => "لومړنۍ مخکې تادیه"],
+        "پیش‌پرداخت نقد اولیه" => ["en" => "Initial Cash Down Payment", "da" => "پیش‌پرداخت نقد اولیه", "ps" => "لومړنۍ نغده مخکې تادیه"],
+        "سایر" => ["en" => "Other", "da" => "سایر", "ps" => "نور"],
+        "وصولی قرضه" => ["en" => "Debt Collection", "da" => "وصولی قرضه", "ps" => "د پور وصول"]
+    ];
+    if (isset($map[$r][$lang])) return $map[$r][$lang];
+    if ($lang === 'en') {
+        if (str_starts_with($r, "پیش پرداخت نقد بل ")) return "Cash Down Payment for Inv " . substr($r, strlen("پیش پرداخت نقد بل "));
+        if (str_starts_with($r, "فروش قرضه - ")) return "Credit Sale - " . substr($r, strlen("فروش قرضه - "));
+        if (str_starts_with($r, "فروش قسطی - ")) return "Installment Sale - " . substr($r, strlen("فروش قسطی - "));
+    }
+    return $r;
+}
+
+function display_partner_role($role) {
+    $lang = get_current_lang();
+    $r = trim((string)$role);
+    $map = [
+        "سرمایه‌گذار اصلی" => ["en" => "Lead Investor", "da" => "سرمایه‌گذار اصلی", "ps" => "اصلي پانګوال"],
+        "شریک کاری" => ["en" => "Working Partner", "da" => "شریک کاری", "ps" => "کاري شریک"],
+        "شریک مالی" => ["en" => "Financial Partner", "da" => "شریک مالی", "ps" => "مالي شریک"],
+        "شریک ۵۰/۵۰" => ["en" => "50/50 Partner", "da" => "شریک ۵۰/۵۰", "ps" => "۵۰/۵۰ شریک"],
+        "مضارب" => ["en" => "Mudarib (Manager)", "da" => "مضارب", "ps" => "مضارب"]
+    ];
+    if (isset($map[$r][$lang])) return $map[$r][$lang];
+    return $r;
+}
+
+function display_mudaraba_status($status) {
+    $lang = get_current_lang();
+    $s = trim((string)$status);
+    if ($s === 'active' || $s === 'فعال') {
+        if ($lang === 'en') return 'Active Contract';
+        if ($lang === 'ps') return 'فعال قرارداد';
+        return 'قرارداد فعال';
+    }
+    if ($s === 'settled' || $s === 'تسویه' || $s === 'completed') {
+        if ($lang === 'en') return 'Fully Settled';
+        if ($lang === 'ps') return 'بشپړ تصفیه شوی';
+        return 'تسویه کامل';
+    }
+    if ($s === 'terminated' || $s === 'فسخ') {
+        if ($lang === 'en') return 'Terminated';
+        if ($lang === 'ps') return 'فسخه شوی';
+        return 'فسخ شده';
+    }
+    return $s;
+}
+

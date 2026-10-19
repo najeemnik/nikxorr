@@ -2,10 +2,20 @@
 /**
  * NiKXor - Mobile Shop Management System
  * Warehouse Location & Shelf View (نمای گدام و قفسه ها)
- * URL: http://localhost/nikxor/modules/warehouse.php
+ * 100% Multilingual Isolated: English, Dari, Pashto
  */
 
-$pageTitle = 'نمای گدام و موقعیت اجناس';
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../includes/auth.php';
+
+auth_require();
+$currentUser = auth_user();
+$currentLang = get_current_lang();
+$currentDir  = get_current_dir();
+
+$pageTitle = __t('Warehouse & Shelf View', 'نمای گدام و موقعیت اجناس', 'د ګودام او الماریو لید');
 require_once __DIR__ . '/../includes/header.php';
 
 $isLocked = is_feature_locked('shelf_view');
@@ -15,10 +25,10 @@ $isLocked = is_feature_locked('shelf_view');
 <div class="card" style="margin-bottom: 20px;">
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <h3 class="card-title" style="display: flex; align-items: center; gap: 8px;">
-            <i class="fa-solid fa-warehouse ml-1"></i> نمای تفکیکی قفسه‌ها و الماری‌ها
-            <span class="badge-lock-tag"><i class="fa-solid fa-lock text-amber-500"></i> قفل می‌باشد</span>
+            <i class="fa-solid fa-warehouse ml-1"></i> <?= __t('Warehouse Shelves & Cabinet Breakdown View', 'نمای تفکیکی قفسه‌ها و الماری‌ها', 'د الماریو او ویترینونو جلا لید') ?>
+            <span class="badge-lock-tag"><i class="fa-solid fa-lock text-amber-500"></i> <?= __t('Locked', 'قفل می‌باشد', 'قفل دی') ?></span>
         </h3>
-        <a href="<?= BASE_URL ?>modules/stock.php" class="btn btn-secondary btn-sm">بازگشت به گدام</a>
+        <a href="<?= BASE_URL ?>modules/stock.php" class="btn btn-secondary btn-sm"><?= __t('Return to Inventory', 'بازگشت به گدام', 'ګودام ته ستنېدل') ?></a>
     </div>
 </div>
 
@@ -26,29 +36,30 @@ $isLocked = is_feature_locked('shelf_view');
     <div class="locked-blur-content" style="padding: 20px;">
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
             <div class="card" style="padding: 20px; border: 1px solid #cbd5e1;">
-                <h4>الماری ویترین ۱</h4>
-                <p>سامسونگ A55 - ۱۰ عدد</p>
-                <p>آیفون 13 - ۲ عدد</p>
+                <h4><?= __t('Showcase Cabinet 1', 'الماری ویترین ۱', 'د ویترین المارۍ ۱') ?></h4>
+                <p>Samsung A55 - 10 units</p>
+                <p>iPhone 13 - 2 units</p>
             </div>
             <div class="card" style="padding: 20px; border: 1px solid #cbd5e1;">
-                <h4>الماری لوازم جانبی</h4>
-                <p>شارژر ۲۰ وات - ۵۰ عدد</p>
-                <p>هندزفری اصل - ۳۰ عدد</p>
+                <h4><?= __t('Accessories Shelf', 'الماری لوازم جانبی', 'د فرعي توکو المارۍ') ?></h4>
+                <p>20W Charger - 50 units</p>
+                <p>Original Handsfree - 30 units</p>
             </div>
         </div>
     </div>
     <div class="locked-overlay-card">
-        <h3><i class="fa-solid fa-lock mr-2"></i> این گزینه قفل می‌باشد</h3>
-        <p style="font-size: 14px; margin-bottom: 8px;">جهت درخواست و فعال‌سازی این گزینه با احمد نجیم نیک تماس بگیرید</p>
-        <p class="en-notice">This feature is currently locked. To request access and unlock this feature, please contact <strong>Ahmad Najeem Nik</strong>.</p>
+        <h3><i class="fa-solid fa-lock mr-2"></i> <?= __t('This Feature is Locked', 'این گزینه قفل می‌باشد', 'دا برخه قفل ده') ?></h3>
+        <p style="font-size: 14px; margin-bottom: 8px;"><?= __t('Contact Ahmad Najeem Nik (+93783788278) to unlock full access.', 'جهت درخواست و فعال‌سازی این گزینه با احمد نجیم نیک تماس بگیرید', 'د پرانیستلو لپاره له احمد نجیم نیک سره اړیکه ونیسئ') ?></p>
+        <p class="en-notice"><?= __t('This feature is currently locked. To request access and unlock this feature, please contact Ahmad Najeem Nik.', 'این قابلیت در نسخه دمو قفل است. جهت دسترسی کامل تماس بگیرید.', 'دا برخه قفل ده.') ?></p>
         <a href="https://wa.me/93783788278?text=Hello%20Ahmad%20Najeem%20Nik,%20I%20would%20like%20to%20unlock%20Shelf%20Visual%20View" target="_blank" class="btn-whatsapp-direct">
-            <i class="fa-brands fa-whatsapp"></i> واتس‌اپ احمد نجیم نیک (+93783788278)
+            <i class="fa-brands fa-whatsapp"></i> <?= __t('WhatsApp Ahmad Najeem Nik (+93783788278)', 'واتس‌اپ احمد نجیم نیک (+93783788278)', 'د احمد نجیم نیک واټس اپ (+93783788278)') ?>
         </a>
     </div>
 </div>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; exit; endif; ?>
 
+<?php
 // Fetch all stock grouped by location
 $stmt = $pdo->query("SELECT s.*, c.name as category_name 
                      FROM stock s 
@@ -62,7 +73,7 @@ $totalAllQty = 0;
 
 foreach ($allStock as $item) {
     $loc = trim($item['warehouse_location'] ?? 'نامشخص');
-    if ($loc === '') $loc = 'تعیین نشده';
+    if ($loc === '') $loc = 'نامشخص';
 
     if (!isset($locations[$loc])) {
         $locations[$loc] = [
@@ -88,18 +99,18 @@ foreach ($allStock as $item) {
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
         <div>
             <h3 class="card-title" style="margin-bottom: 4px;">
-                <i class="fa-solid fa-warehouse ml-1"></i> نمای تفکیکی گدام و الماری ها
+                <i class="fa-solid fa-warehouse ml-1"></i> <?= __t('Warehouse & Showcase Visual Breakdown', 'نمای تفکیکی گدام و الماری ها', 'د ګودام او الماریو جلا لید') ?>
             </h3>
             <p style="font-size: 12.5px; color: #64748b;">
-                تفکیک موقعیت اجناس در الماری ها، ویترین ها و قفسه های دکان (مجموع کل: <?= to_persian_num($totalAllQty) ?> قلم جنس به ارزش <?= format_money($totalAllVal) ?>)
+                <?= sprintf(__t('Item locations across shelves, showcases, and cabinets (Total: %s items valued at %s)', 'تفکیک موقعیت اجناس در الماری ها، ویترین ها و قفسه های دکان (مجموع کل: %s قلم جنس به ارزش %s)', 'د توکو موقعیت (ټولټال: %s قلمه د %s په ارزښت)'), display_qty_unit($totalAllQty), format_money($totalAllVal)) ?>
             </p>
         </div>
         <div>
             <a href="<?= BASE_URL ?>modules/stock_add.php" class="btn btn-primary btn-sm">
-                <i class="fa-solid fa-plus"></i> ثبت جنس جدید
+                <i class="fa-solid fa-plus"></i> <?= __t('Add New Item', 'ثبت جنس جدید', 'نوی جنس ثبت کړئ') ?>
             </a>
             <a href="<?= BASE_URL ?>modules/stock.php" class="btn btn-secondary btn-sm">
-                <i class="fa-solid fa-list"></i> لست جدول گدام
+                <i class="fa-solid fa-list"></i> <?= __t('Inventory Table', 'لست جدول گدام', 'د ګودام جدول') ?>
             </a>
         </div>
     </div>
@@ -108,7 +119,7 @@ foreach ($allStock as $item) {
 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 20px;">
     <?php if (empty($locations)): ?>
         <div class="card" style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #64748b;">
-            هنوز جنسی در گدام ثبت نشده است.
+            <?= __t('No items registered in warehouse yet.', 'هنوز جنسی در گدام ثبت نشده است.', 'تر اوسه په ګودام کې هېڅ توکی نه دی ثبت شوی.') ?>
         </div>
     <?php else: ?>
         <?php foreach ($locations as $locName => $locData): ?>
@@ -116,14 +127,14 @@ foreach ($allStock as $item) {
                 <div class="card-header" style="background-color: #f8fafc; border-bottom: 2px solid #0f172a; padding: 12px 16px;">
                     <div>
                         <h4 style="font-size: 14px; font-weight: 800; color: #0f172a; margin: 0;">
-                            <i class="fa-solid fa-boxes-packing ml-1"></i> <?= sanitize($locName) ?>
+                            <i class="fa-solid fa-boxes-packing ml-1"></i> <?= sanitize(display_stock_location($locName)) ?>
                         </h4>
                         <span style="font-size: 11.5px; color: #64748b;">
-                            <?= to_persian_num(count($locData['items'])) ?> جنس مختلف
+                            <?= sprintf(__t('%s distinct products', '%s جنس مختلف', '%s بېلابېل توکي'), ($currentLang === 'en' ? count($locData['items']) : to_persian_num(count($locData['items'])))) ?>
                         </span>
                     </div>
-                    <div style="text-align: left;">
-                        <span class="badge badge-primary"><?= to_persian_num($locData['total_qty']) ?> عدد</span>
+                    <div style="text-align: <?= $currentDir === 'rtl' ? 'left' : 'right' ?>;">
+                        <span class="badge badge-primary"><?= display_qty_unit($locData['total_qty']) ?></span>
                     </div>
                 </div>
 
@@ -131,9 +142,9 @@ foreach ($allStock as $item) {
                     <table class="table" style="font-size: 12px; margin: 0;">
                         <thead>
                             <tr>
-                                <th>اسم جنس</th>
-                                <th style="width: 70px; text-align: center;">موجودی</th>
-                                <th style="width: 85px;">نرخ تمام شد</th>
+                                <th><?= __t('Product Name', 'اسم جنس', 'د توکي نوم') ?></th>
+                                <th style="width: 70px; text-align: center;"><?= __t('Stock', 'موجودی', 'موجودي') ?></th>
+                                <th style="width: 95px; text-align: center;"><?= __t('Cost Price', 'نرخ تمام شد', 'تمام شوی نرخ') ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -146,19 +157,19 @@ foreach ($allStock as $item) {
                                             <?= sanitize($it['name']) ?>
                                         </a>
                                         <div style="font-size: 10px; color: #64748b;">
-                                            <?= sanitize($it['category_name'] ?? 'بدون دسته') ?>
+                                            <?= sanitize($it['category_name'] ? display_category_name($it['category_name']) : __t('Uncategorized', 'بدون دسته', 'بې کټګورۍ')) ?>
                                         </div>
                                     </td>
                                     <td style="text-align: center;">
                                         <?php if ((int)$it['quantity'] <= 0): ?>
-                                            <span class="badge badge-danger">۰</span>
+                                            <span class="badge badge-danger"><?= __t('Out of Stock', 'تمام شده (۰)', 'خلاص شوی (۰)') ?></span>
                                         <?php elseif ((int)$it['quantity'] <= 3): ?>
-                                            <span class="badge badge-warning"><?= to_persian_num($it['quantity']) ?></span>
+                                            <span class="badge badge-warning"><?= $currentLang === 'en' ? $it['quantity'] : to_persian_num($it['quantity']) ?></span>
                                         <?php else: ?>
-                                            <span class="badge badge-success"><?= to_persian_num($it['quantity']) ?></span>
+                                            <span class="badge badge-success"><?= $currentLang === 'en' ? $it['quantity'] : to_persian_num($it['quantity']) ?></span>
                                         <?php endif; ?>
                                     </td>
-                                    <td><?= format_money($unitCost) ?></td>
+                                    <td style="text-align: center;"><?= format_money($unitCost) ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -166,7 +177,7 @@ foreach ($allStock as $item) {
                 </div>
 
                 <div style="background-color: #f1f5f9; padding: 8px 16px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; font-size: 11.5px; font-weight: 700; color: #0f172a;">
-                    <span>ارزش مجموعی موجودی این بخش:</span>
+                    <span><?= __t('Total value in this location:', 'ارزش مجموعی موجودی این بخش:', 'د دې برخې ټولټال ارزښت:') ?></span>
                     <span><?= format_money($locData['total_val']) ?></span>
                 </div>
             </div>

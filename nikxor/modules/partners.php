@@ -2,7 +2,7 @@
 /**
  * NiKXor - Mobile Shop Management System
  * Partners and Profit Sharing Module (شریک ها و تقسیم مفاد)
- * URL: http://localhost/nikxor/modules/partners.php
+ * 100% Language Isolation Supported: English, Dari, Pashto
  */
 
 require_once __DIR__ . '/../config/database.php';
@@ -12,6 +12,8 @@ require_once __DIR__ . '/../includes/auth.php';
 
 auth_require();
 $currentUser = auth_user();
+$currentLang = get_current_lang();
+$currentDir  = get_current_dir();
 
 $error = '';
 $success = '';
@@ -19,7 +21,7 @@ $success = '';
 // Handle Add Partner
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add_partner') {
     if (!csrf_verify($_POST['csrf_token'] ?? '')) {
-        $error = 'خطای امنیتی نشست!';
+        $error = __t('Security session error!', 'خطای امنیتی نشست!');
     } else {
         $name        = trim($_POST['name'] ?? '');
         $phone       = trim($_POST['phone'] ?? '');
@@ -29,9 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $notes       = trim($_POST['notes'] ?? '');
 
         if (empty($name)) {
-            $error = 'لطفاً نام شریک را وارد نمایید.';
+            $error = __t('Partner name is required.', 'لطفاً نام شریک را وارد نمایید.');
         } elseif ($share < 0 || $share > 100) {
-            $error = 'فیصدی سهم باید عددی بین ۰ تا ۱۰۰ باشد.';
+            $error = __t('Share percentage must be between 0 and 100.', 'فیصدی سهم باید عددی بین ۰ تا ۱۰۰ باشد.');
         } else {
             $stmt = $pdo->prepare("INSERT INTO partners (name, phone, share_percentage, investment_amount, join_date, status, notes) 
                                    VALUES (:name, :phone, :share, :inv, :jdate, 'active', :notes)");
@@ -45,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             ]);
 
             log_activity($currentUser['id'], 'ثبت شریک جدید', "ثبت شریک جدید «{$name}» با سهم {$share}٪");
-            set_flash("شریک جدید «{$name}» با موفقیت اضافه شد.", 'success');
+            set_flash(sprintf(__t('New partner «%s» added successfully.', 'شریک جدید «%s» با موفقیت اضافه شد.'), $name), 'success');
             redirect(BASE_URL . 'modules/partners.php');
         }
     }
@@ -54,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 // Handle Edit Partner
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'edit_partner') {
     if (!csrf_verify($_POST['csrf_token'] ?? '')) {
-        $error = 'خطای امنیتی نشست!';
+        $error = __t('Security session error!', 'خطای امنیتی نشست!');
     } else {
         $partnerId   = (int)($_POST['partner_id'] ?? 0);
         $name        = trim($_POST['name'] ?? '');
@@ -65,9 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $notes       = trim($_POST['notes'] ?? '');
 
         if ($partnerId <= 0 || empty($name)) {
-            $error = 'اطلاعات ارسالی معتبر نیست.';
+            $error = __t('Invalid partner information provided.', 'اطلاعات ارسالی معتبر نیست.');
         } elseif ($share < 0 || $share > 100) {
-            $error = 'فیصدی سهم باید عددی بین ۰ تا ۱۰۰ باشد.';
+            $error = __t('Share percentage must be between 0 and 100.', 'فیصدی سهم باید عددی بین ۰ تا ۱۰۰ باشد.');
         } else {
             $stmt = $pdo->prepare("UPDATE partners SET 
                 name = :name, phone = :phone, share_percentage = :share, 
@@ -84,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             ]);
 
             log_activity($currentUser['id'], 'ویرایش سهم شریک', "ویرایش مشخصات و سهم شریک «{$name}» به {$share}٪");
-            set_flash("مشخصات و سهم شریک «{$name}» با موفقیت بروزرسانی شد.", 'success');
+            set_flash(sprintf(__t('Partner «%s» profile and share updated successfully.', 'مشخصات و سهم شریک «%s» با موفقیت بروزرسانی شد.'), $name), 'success');
             redirect(BASE_URL . 'modules/partners.php');
         }
     }
@@ -93,22 +95,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 // Handle Delete Partner
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete_partner') {
     if (!csrf_verify($_POST['csrf_token'] ?? '')) {
-        set_flash('خطای امنیتی نشست!', 'danger');
+        set_flash(__t('Security session error!', 'خطای امنیتی نشست!'), 'danger');
     } else {
         $delId = (int)($_POST['partner_id'] ?? 0);
         if ($delId > 0) {
             $pStmt = $pdo->prepare("SELECT name FROM partners WHERE id = :id");
             $pStmt->execute([':id' => $delId]);
-            $pName = $pStmt->fetchColumn() ?: "شناسه {$delId}";
+            $pName = $pStmt->fetchColumn() ?: "ID {$delId}";
             $stmt = $pdo->prepare("DELETE FROM partners WHERE id = :id");
             $stmt->execute([':id' => $delId]);
             log_activity($currentUser['id'], 'حذف شریک', "حذف شریک «{$pName}» با شناسه {$delId}");
-            set_flash("شریک «{$pName}» با موفقیت حذف گردید.", 'success');
+            set_flash(sprintf(__t('Partner «%s» deleted successfully.', 'شریک «%s» با موفقیت حذف گردید.'), $pName), 'success');
         }
     }
     redirect(BASE_URL . 'modules/partners.php');
 }
-
 
 // Fetch partners
 $partners = $pdo->query("SELECT * FROM partners ORDER BY id ASC")->fetchAll();
@@ -129,25 +130,25 @@ require_once __DIR__ . '/../includes/header.php';
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
         <div>
             <h3 class="card-title" style="margin-bottom: 4px;">
-                <i class="fa-solid fa-users-gear ml-1"></i> حساب شرکا و تسهیم مفاد
+                <i class="fa-solid fa-users-gear ml-1"></i> <?= __t('Partnership Accounts & Profit Sharing', 'حساب شرکا و تسهیم مفاد', 'د شریکانو حساب او د ګټې وېش') ?>
             </h3>
             <p style="font-size: 12.5px; color: #64748b;">
-                مجموع مفاد خالص قابل تقسیم دکان: <strong style="color: #15803d; font-size: 15px;"><?= format_money($totalNetProfit) ?></strong> | 
-                سرمایه عمومی: <strong><?= format_money($totalCapital) ?></strong>
+                <?= __t('Total Distributable Net Store Profit: ', 'مجموع مفاد خالص قابل تقسیم دکان: ', 'د هټۍ د وېش وړ خالص ګټه: ') ?><strong style="color: #15803d; font-size: 15px;"><?= format_money($totalNetProfit) ?></strong> | 
+                <?= __t('General Capital: ', 'سرمایه عمومی: ', 'عمومي پانګه: ') ?><strong><?= format_money($totalCapital) ?></strong>
             </p>
         </div>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
             <a href="<?= BASE_URL ?>modules/mudaraba.php" class="btn btn-primary btn-sm" style="background: #10b981; border-color: #10b981;">
-                <i class="fa-solid fa-handshake-angle ml-1"></i> حساب اختصاصی مضاربت (کالای خارجی)
+                <i class="fa-solid fa-handshake-angle ml-1"></i> <?= __t('Dedicated Mudaraba Account (Foreign Goods)', 'حساب اختصاصی مضاربت (کالای خارجی)', 'د مضاربت ځانګړی حساب (بهرني توکي)') ?>
             </a>
             <?php if (is_feature_locked('capital_turnover')): ?>
-                <button type="button" onclick="showLockModal('capital_turnover', 'Capital Turnover & Cash Flow Management', 'مدیریت گردش سرمایه دکان');" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 6px;">
-                    <i class="fa-solid fa-vault ml-1"></i> مدیریت گردش سرمایه دکان
-                    <span class="badge-lock-tag" style="padding: 1px 6px; font-size: 10px;"><i class="fa-solid fa-lock text-amber-500"></i> قفل</span>
+                <button type="button" onclick="showLockModal('capital_turnover', 'Capital Turnover & Cash Flow Management', '<?= __t('Capital Turnover & Cash Flow Management', 'مدیریت گردش سرمایه دکان') ?>');" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-vault ml-1"></i> <?= __t('Capital Turnover Management', 'مدیریت گردش سرمایه دکان', 'د پانګې د څرخ مدیریت') ?>
+                    <span class="badge-lock-tag" style="padding: 1px 6px; font-size: 10px;"><i class="fa-solid fa-lock text-amber-500"></i> <?= __t('Locked', 'قفل', 'قفل') ?></span>
                 </button>
             <?php else: ?>
                 <a href="<?= BASE_URL ?>modules/capital.php" class="btn btn-secondary btn-sm">
-                    <i class="fa-solid fa-vault ml-1"></i> مدیریت گردش سرمایه دکان
+                    <i class="fa-solid fa-vault ml-1"></i> <?= __t('Capital Turnover Management', 'مدیریت گردش سرمایه دکان', 'د پانګې د څرخ مدیریت') ?>
                 </a>
             <?php endif; ?>
         </div>
@@ -159,7 +160,7 @@ require_once __DIR__ . '/../includes/header.php';
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">
-                <i class="fa-solid fa-user-plus ml-1"></i> ثبت شریک جدید
+                <i class="fa-solid fa-user-plus ml-1"></i> <?= __t('Register New Partner', 'ثبت شریک جدید', 'نوی شریک ثبتول') ?>
             </h3>
         </div>
 
@@ -176,40 +177,40 @@ require_once __DIR__ . '/../includes/header.php';
 
             <div class="form-group">
                 <label class="form-label" for="name">
-                    نام شریک: <span style="color: #ef4444;">*</span>
+                    <?= __t('Partner Name: *', 'نام شریک: *', 'د شریک نوم: *') ?>
                 </label>
-                <input type="text" id="name" name="name" class="form-control" required placeholder="نام کامل شریک">
+                <input type="text" id="name" name="name" class="form-control" required placeholder="<?= __t('Full Partner Name', 'نام کامل شریک', 'د شریک بشپړ نوم') ?>">
             </div>
 
             <div class="form-group">
-                <label class="form-label" for="phone">شماره تماس:</label>
+                <label class="form-label" for="phone"><?= __t('Phone Number:', 'شماره تماس:', 'د تلیفون شمېره:') ?></label>
                 <input type="text" id="phone" name="phone" class="form-control numeric-input" placeholder="07xxxxxxxx">
             </div>
 
             <div class="form-group">
                 <label class="form-label" for="share_percentage">
-                    فیصدی سهم از مفاد (٪): <span style="color: #ef4444;">*</span>
+                    <?= __t('Profit Share (%): *', 'فیصدی سهم از مفاد (٪): *', 'د ګټې سلنه (٪): *') ?>
                 </label>
-                <input type="number" step="any" id="share_percentage" name="share_percentage" class="form-control numeric-input" min="0" max="100" required placeholder="مثلاً 50">
+                <input type="number" step="any" id="share_percentage" name="share_percentage" class="form-control numeric-input" min="0" max="100" required placeholder="<?= __t('e.g. 50', 'مثلاً 50', 'لکه 50') ?>">
             </div>
 
             <div class="form-group">
-                <label class="form-label" for="investment_amount">مبلغ سرمایه گذاری اولیه (افغانی):</label>
-                <input type="number" step="any" id="investment_amount" name="investment_amount" class="form-control numeric-input" value="0" placeholder="مبلغ آورده نقدی">
+                <label class="form-label" for="investment_amount"><?= sprintf(__t('Initial Investment Capital (%s):', 'مبلغ سرمایه گذاری اولیه (%s):', 'د لومړنۍ پانګې اندازه (%s):'), get_currency_label()) ?></label>
+                <input type="number" step="any" id="investment_amount" name="investment_amount" class="form-control numeric-input" value="0" placeholder="0">
             </div>
 
             <div class="form-group">
-                <label class="form-label" for="join_date">تاریخ آغاز همکاری:</label>
+                <label class="form-label" for="join_date"><?= __t('Partnership Start Date:', 'تاریخ آغاز همکاری:', 'د همکارۍ د پیل نېټه:') ?></label>
                 <input type="date" id="join_date" name="join_date" class="form-control" value="<?= date('Y-m-d') ?>">
             </div>
 
             <div class="form-group">
-                <label class="form-label" for="notes">توضیحات و شرایط شراکت:</label>
-                <textarea id="notes" name="notes" class="form-control" rows="2" placeholder="توضیحات درباره قرارداد شراکت"></textarea>
+                <label class="form-label" for="notes"><?= __t('Partnership Terms & Notes:', 'توضیحات و شرایط شراکت:', 'د شراکت شرایط:') ?></label>
+                <textarea id="notes" name="notes" class="form-control" rows="2" placeholder="<?= __t('Partnership agreement details and terms...', 'توضیحات درباره قرارداد شراکت...', 'د شراکت تړون په اړه توضیحات...') ?>"></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
-                <i class="fa-solid fa-check ml-1"></i> ثبت مشخصات شریک
+                <i class="fa-solid fa-check ml-1"></i> <?= __t('Save Partner Details', 'ثبت مشخصات شریک', 'د شریک ثبتول') ?>
             </button>
         </form>
     </div>
@@ -218,28 +219,28 @@ require_once __DIR__ . '/../includes/header.php';
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">
-                <i class="fa-solid fa-chart-pie ml-1"></i> وضعیت سهم و مفاد شرکا
+                <i class="fa-solid fa-chart-pie ml-1"></i> <?= __t('Partners List & Current Profit Distribution', 'وضعیت سهم و مفاد شرکا', 'د شریکانو د ګټې وېش حالت') ?>
             </h3>
-            <span class="badge badge-secondary"><?= to_persian_num(count($partners)) ?> شریک ثبت شده</span>
+            <span class="badge badge-secondary"><?= $currentLang === 'en' ? count($partners) . ' partners' : to_persian_num(count($partners)) . ' شریک ثبت شده' ?></span>
         </div>
 
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>نام شریک</th>
-                        <th>تماس</th>
-                        <th>درصد سهم</th>
-                        <th>آورده اولیه</th>
-                        <th>سهم از مفاد فعلی</th>
-                        <th>عملیات</th>
+                        <th><?= __t('Partner Name', 'نام شریک', 'د شریک نوم') ?></th>
+                        <th><?= __t('Phone', 'تماس', 'تلیفون') ?></th>
+                        <th><?= __t('Share %', 'درصد سهم', 'د ونډې سلنه') ?></th>
+                        <th><?= __t('Capital Invested', 'آورده اولیه', 'لومړنۍ پانګه') ?></th>
+                        <th><?= __t('Current Profit Share', 'سهم از مفاد فعلی', 'له اوسنۍ ګټې ونډه') ?></th>
+                        <th><?= __t('Actions', 'عملیات', 'کړنې') ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($partners)): ?>
                         <tr>
                             <td colspan="6" style="text-align: center; color: #64748b; padding: 20px;">
-                                هیچ شریکی ثبت نشده است.
+                                <?= __t('No partners registered yet.', 'هیچ شریکی ثبت نشده است.', 'تر اوسه هېڅ شریک نه دی ثبت شوی.') ?>
                             </td>
                         </tr>
                     <?php else: ?>
@@ -256,7 +257,7 @@ require_once __DIR__ . '/../includes/header.php';
                                 </td>
                                 <td><?= sanitize($part['phone'] ?: '-') ?></td>
                                 <td>
-                                    <span class="badge badge-primary" style="font-size: 12px;"><?= to_persian_num($sharePct) ?>٪</span>
+                                    <span class="badge badge-primary" style="font-size: 12px;"><?= $currentLang === 'en' ? $sharePct : to_persian_num($sharePct) ?>%</span>
                                 </td>
                                 <td><?= format_money($part['investment_amount']) ?></td>
                                 <td>
@@ -266,13 +267,13 @@ require_once __DIR__ . '/../includes/header.php';
                                 </td>
                                 <td style="white-space: nowrap;">
                                     <button type="button" class="btn btn-sm btn-secondary" onclick="openEditPartnerModal(<?= htmlspecialchars(json_encode($part), ENT_QUOTES, 'UTF-8') ?>)">
-                                        <i class="fa-solid fa-pen-to-square"></i> ویرایش سهم
+                                        <i class="fa-solid fa-pen-to-square"></i> <?= __t('Edit', 'ویرایش سهم', 'سمول') ?>
                                     </button>
                                     <form method="POST" action="" style="display: inline-block;">
                                         <?= csrf_field() ?>
                                         <input type="hidden" name="action" value="delete_partner">
                                         <input type="hidden" name="partner_id" value="<?= $part['id'] ?>">
-                                        <button type="submit" class="btn btn-sm btn-danger" data-confirm="آیا از حذف شریک «<?= sanitize($part['name']) ?>» اطمینان کامل دارید؟" title="حذف شریک">
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('<?= sprintf(__t('Are you sure you want to remove partner «%s»?', 'آیا از حذف شریک «%s» اطمینان کامل دارید؟', 'ایا باوري یاست چې دا شریک ړنګ کړئ؟'), sanitize($part['name'])) ?>');" title="<?= __t('Delete Partner', 'حذف شریک', 'شریک ړنګول') ?>">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </form>
@@ -288,10 +289,10 @@ require_once __DIR__ . '/../includes/header.php';
 
 <!-- Edit Partner Modal -->
 <div id="editPartnerModal" class="feature-modal-backdrop" onclick="if(event.target === this) closeEditPartnerModal();">
-    <div class="feature-modal-box" style="max-width: 460px; text-align: right;">
+    <div class="feature-modal-box" style="max-width: 460px; text-align: <?= $currentDir === 'rtl' ? 'right' : 'left' ?>;">
         <button type="button" class="feature-modal-close" onclick="closeEditPartnerModal();">&times;</button>
         <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 14px; color: #0f172a;">
-            <i class="fa-solid fa-pen-to-square ml-1" style="color: #0284c7;"></i> ویرایش مشخصات و درصد سهم شریک
+            <i class="fa-solid fa-pen-to-square ml-1" style="color: #0284c7;"></i> <?= __t('Edit Partner Details & Profit Share', 'ویرایش مشخصات و درصد سهم شریک', 'د شریک د ونډې سمول') ?>
         </h3>
 
         <form method="POST" action="">
@@ -300,32 +301,32 @@ require_once __DIR__ . '/../includes/header.php';
             <input type="hidden" id="editPartnerId" name="partner_id" value="0">
 
             <div class="form-group" style="margin-bottom: 12px;">
-                <label class="form-label">نام شریک:</label>
+                <label class="form-label"><?= __t('Partner Name:', 'نام شریک:', 'د شریک نوم:') ?></label>
                 <input type="text" id="editPartnerName" name="name" class="form-control" required>
             </div>
 
             <div class="form-group" style="margin-bottom: 12px;">
-                <label class="form-label">شماره تماس:</label>
+                <label class="form-label"><?= __t('Phone Number:', 'شماره تماس:', 'د تلیفون شمېره:') ?></label>
                 <input type="text" id="editPartnerPhone" name="phone" class="form-control numeric-input">
             </div>
 
             <div class="form-group" style="margin-bottom: 12px;">
-                <label class="form-label">درصد سهم از مفاد (٪):</label>
+                <label class="form-label"><?= __t('Profit Share Percentage (%):', 'درصد سهم از مفاد (٪):', 'د ګټې سلنه (٪):') ?></label>
                 <input type="number" step="any" id="editPartnerShare" name="share_percentage" class="form-control numeric-input" min="0" max="100" required>
             </div>
 
             <div class="form-group" style="margin-bottom: 12px;">
-                <label class="form-label">مبلغ آورده / سرمایه‌گذاری (افغانی):</label>
+                <label class="form-label"><?= sprintf(__t('Investment Capital (%s):', 'مبلغ آورده / سرمایه‌گذاری (%s):', 'د پانګې اندازه (%s):'), get_currency_label()) ?></label>
                 <input type="number" step="any" id="editPartnerInv" name="investment_amount" class="form-control numeric-input">
             </div>
 
             <div class="form-group" style="margin-bottom: 16px;">
-                <label class="form-label">یادداشت و توافقات:</label>
+                <label class="form-label"><?= __t('Agreement Notes:', 'یادداشت و توافقات:', 'توضیحات او هوکړه:') ?></label>
                 <textarea id="editPartnerNotes" name="notes" class="form-control" rows="2"></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 10px;">
-                <i class="fa-solid fa-floppy-disk ml-1"></i> ذخیره تغییرات سهم
+                <i class="fa-solid fa-floppy-disk ml-1"></i> <?= __t('Save Changes', 'ذخیره تغییرات سهم', 'بدلونونه خوندي کړئ') ?>
             </button>
         </form>
     </div>
@@ -345,6 +346,5 @@ function closeEditPartnerModal() {
     document.getElementById('editPartnerModal').style.display = 'none';
 }
 </script>
-
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
